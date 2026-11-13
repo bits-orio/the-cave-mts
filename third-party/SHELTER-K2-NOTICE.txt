@@ -1,0 +1,14 @@
+Shelter-k2 sounds
+=================
+
+Upstream project: shelter-k2 0.0.4
+Author: zanven
+Project URL: https://github.com/zanven42/factorio-shelter-k2
+License: GNU General Public License v3.0
+
+The Cave imports only the Shelter open/close sounds. Beginning with The Cave
+3.1.67, the exterior Shelter artwork, remnant artwork, inventory/shortcut icon,
+light and shadow layers are no longer imported from shelter-k2. The upstream
+runtime logic and its free 120 kW power output are not included. The full
+upstream GPL-3.0 license remains included beside this notice as
+shelter-k2-GPL-3.0.txt.

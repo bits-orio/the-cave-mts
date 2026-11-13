@@ -1,0 +1,127 @@
+The Cave 3.3.5 - test build for the four approved changes
+Date: 2026-11-02
+
+BASELINE AND SCOPE
+Based on the original main-edition the-cave_3.3.3.zip.
+Baseline SHA-256:
+0b99b91ae7f61b4447ffed4ae47084959ebd8c26f56f8d2f101140705185ea18
+The discarded 3.3.4 Advancing Collapse experiment is not included.
+Advancing Collapse, team support, train and shelter modules are unchanged.
+This is a local test package; it has not been published to the mod portal.
+
+1. MECH ARMOR
+The Power armor MK2 ingredient is removed. These are the complete resulting
+ingredients with the official Space Age recipes used in the test:
+  Processing unit:       160 (existing 100 plus the agreed 60)
+  Holmium plate:         200
+  Superconductor:         50
+  Supercapacitor:         50
+  Electric engine unit:   40
+  Low density structure:  30
+  Speed module, tier 1:  100
+  Efficiency module, tier 1: 100
+Recipe time, output, research unlock and equipment-grid upgrade behavior are
+unchanged. Its generated recycling recipe follows the new ingredients.
+
+2. OPTIONAL MOD
+info.json includes: ? portable-nested-chests
+Portable Nested Chests remains optional and is not bundled or modified.
+
+3. UNDERGROUND QUICKBAR
+Internal reach placement items are native, counted item stacks rather than
+only-in-cursor stacks. Quickbar assignments retain the official item name and
+quality. Inventory/drop boundaries normalize internal items back to official
+items. The old script refund balance is settled once during configuration
+migration, avoiding a second refund of a stack that physically exists.
+A non-consuming linked clear-cursor input restores the official item name
+before the player's normal Q action, including for filtered/full inventories.
+It follows the player's existing key binding and adds no visible new binding.
+
+4. STAGED BLUEPRINTS
+Held blueprints and physical blueprint books use the current force's reach
+prototype for underground entities. On return to inventory, they are stored
+with official names again. Position, snapping and other blueprint data are
+retained. Library records are designed to use a disposable physical copy;
+the original library record is not rewritten.
+Existing pipes and underground ghosts are synchronized on research or mod
+configuration changes. A queued job updates at most 128 such entities per tick;
+the existing real-belt synchronization job remains in use. Robots still use
+official belt/pipe items. Existing ghost upgrades use the native in-place API.
+
+EXECUTED CHECKS
+Engine: official Factorio 2.1.24 build 87808, Linux headless.
+Temporary QA scenarios were isolated and are not shipped in this package.
+
+- All package Lua files parsed successfully; metadata and archive integrity
+  were checked. The original extracted 3.3.3 baseline remained unchanged.
+- Native held-stack quickbar assignment: all four belt tiers and pipe-to-ground,
+  before and after genuine first reach research. The engine accepted upgraded
+  stacks. The stateless quickbar event handler preserved official name/quality.
+- Ten item/quality cases (five item types, normal and legendary): native build
+  consumed exactly one item; clear-cursor retained the remaining count. Full
+  inventory tests checked conservation across inventory, cursor and ground.
+- A full inventory with a filtered belt slot accepted the returned stack after
+  invoking the exact linked-input handler followed by native clear-cursor.
+- Damaged rare stacks retained health/count/quality. Ground-drop and single-item
+  chest-drop handlers were exercised on actual native stacks/entities.
+- Legacy cursor balance cases were injected through a QA-only interface in a
+  separate mod copy: physically held stacks and owed-but-absent stacks both
+  settled once with correct counts. This is distinct from a serialized player
+  cursor migration test; the latter was not performed.
+- Three-stage blueprint overlap: 30 combinations (five underground types,
+  normal/legendary quality, reach levels 0/1/7). Native player placement of
+  stages 2 and 3 succeeded without replacing the shared placed entities.
+  Cases included rotation and horizontal flip. Pipe fluid was preserved.
+- The same staged fixture passed 12 combinations in actual Base-only mode,
+  with Space Age, quality, elevated rails and recycler disabled.
+- The staged fixture also passed with reach research disabled in Startup.
+- A three-page physical blueprint book followed force changes and returned
+  to official names in inventory. Decoded exports matched the original JSON
+  after canonicalizing only the underground names; snapping and metadata held.
+- Genuine pipe research updated an existing rare pipe with its fluid,
+  temperature and health retained. An existing tagged ghost stayed valid and
+  changed prototype in place. Another force's pipe was not changed.
+- Six connected underground pipes upgraded with the network retaining exactly
+  250 units of water at 75 degrees; no fluid loss or duplication was observed.
+- Actual construction robots built five rare researched underground entities
+  from five official item supplies, consuming each supply once.
+- Mech armor was crafted by a native player after all three grid-upgrade
+  research flags, and by an actual assembling machine, without any MK2 item.
+  All eight ingredient amounts and generated recycling outputs were checked.
+- An actual server save made using original 3.3.3 was loaded with 3.3.5:
+  256 existing rare pipes, their water/temperature, and a tagged underground
+  ghost migrated successfully. This exercised real save serialization and
+  configuration-change loading.
+- The final packaged ZIP was loaded and exercised in the native engine.
+
+REMAINING CLIENT CHECKS / LIMITS
+These were automated native-engine tests, not graphical mouse/keyboard play.
+The quickbar UI click and linked Q key were tested through native APIs and
+their handlers, not physical input. Personal/shared blueprint library record
+selection, library book navigation and other mods' custom blueprint UIs still
+need a graphical-client check. No multi-client desync session was run.
+Portable Nested Chests' optional metadata was checked; its installed runtime
+was not available for a joint playtest. No claim is made that every feature
+of the full mod or every possible third-party mod combination was playtested.
+
+Suggested player check: use a copy of a save, finish reach research, add the
+held underground item to the quickbar, place blueprint stages 1/2/3, switch
+pages of a library book, return a stack with Q, and craft Mech armor. Include
+an already-researched save as well as a newly completed research upgrade.
+
+EXACT CHANGED / ADDED FILES RELATIVE TO ORIGINAL 3.3.3
+  info.json
+  changelog.txt
+  TESTING-3.3.5.txt                         (new)
+  control.lua
+  data-final-fixes.lua
+  prototypes/mech_armor_recipe.lua         (new)
+  prototypes/underground_cursor_return.lua (new)
+  prototypes/underground_belt_reach_variants.lua
+  prototypes/underground_pipe_reach_variants.lua
+  scripts/underground_belt_reach.lua
+  scripts/underground_pipe_reach.lua
+  scripts/underground_item_ui.lua          (new)
+  scripts/underground_blueprints.lua       (new)
+  scripts/underground_world_sync.lua       (new)
+All other original files are byte-for-byte unchanged.

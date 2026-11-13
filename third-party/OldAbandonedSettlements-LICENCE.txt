@@ -1,0 +1,55 @@
+﻿Independent Project Licence (IPL)
+
+
+
+
+This licence governs the use of the following materials: code, mod mechanics, and art assets (collectively "Materials") created by [Sacredanarchy] for Factorio mods. These Materials are provided on an “as is” basis without warranty of any kind.
+
+
+Section 1: Code & Mod Mechanics – Free Use with Attribution
+
+
+You are free to use, modify, distribute, and create derivative works based upon this code and mod mechanics (the "Code & Mechanics") for any purpose, including commercial purposes, provided you comply with the following conditions:
+
+
+Attribution: You must give appropriate credit. This includes, but is not limited to:
+- Linking to the original Factorio Mod Portal page for the mod in your project's description or documentation.
+- Acknowledging [SacredAnarchy] as the creator of the Code & Mechanics.
+- Providing a link to the original source (e.g., Factorio Mod Portal page or GitHub repository) if applicable.
+- Indicating if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses or supports you or your work.
+
+
+Share Alike: If you distribute a modified version of this Code & Mechanics, you must licence it under the same terms as this Independent Project Licence (IPL). This ensures continued openness and sharing within the Factorio modding community.
+
+
+Section 2: Art Assets – Restricted Use
+
+
+The art assets included in these Materials (the "Art Assets") are subject to separate and more restrictive terms. You may use the Code & Mechanics provided they do not utilize the Art Assets. However, you may not reproduce, distribute, or create derivative works based upon the Art Assets without explicit permission from [SacredAnarchy].
+
+
+To request permission regarding the use of the Art Assets, please utilize the Discussions feature on the Factorio Mod Portal page for this mod.
+
+
+Section 3: Use in Media Formats (YouTube, Twitch, etc.)
+
+
+You are permitted to use the Code & Mechanics and Art Assets within videos, streams, or other media formats (e.g., YouTube videos, Twitch streams, tutorials) without requiring explicit permission, provided you give appropriate attribution as outlined in Section 1. This includes showcasing gameplay featuring the mod, creating tutorials demonstrating its functionality, or incorporating it into Let's Play videos.
+
+
+Section 4: Disclaimer of Warranty & Limitation of Liability
+
+
+THE MATERIALS ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL [SacredAnarchy] BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, LOSS OF PROFITS, DATA, OR USE) ARISING OUT OF THE USE OR INABILITY TO USE THE MATERIALS, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+
+Section 5: Termination
+
+
+Permission granted under this licence may be terminated by [SacredAnarchy] if you fail to comply with the terms of this licence. Upon termination, you must cease distribution of any derivative works based on these Materials.
+
+
+Section 6: Governing Law and Jurisdiction
+
+
+This licence shall be governed by and construed in accordance with the laws of England and Wales. Any disputes arising out of or related to this licence shall be subject to the exclusive jurisdiction of the courts of England and Wales.

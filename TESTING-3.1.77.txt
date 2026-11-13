@@ -1,0 +1,73 @@
+The Cave 3.1.77 - Test build
+Date: 2026-09-18
+Baseline: user-approved The Cave 3.1.76, same branch and dependencies.
+Baseline ZIP SHA-256: ac8b91bdff09425a0815198081e55d18f24bf8493af5dddf3930a5c2b01bc314
+
+CONTENTS
+- Industrial Loader graphics and icons in yellow, red, blue and green, preserving the existing three/four-tier condition, all directions and input/output states.
+- Wind Turbine graphics, rotation and icons. Native 20-frame timing, 300x175 frame size, scale, shift, power, research and enable/disable behaviour are preserved.
+- Separate Cave Accumulator (3x3): Normal quality 50 MJ, 3 MW input/output, 100 seconds; 50 batteries, 10 steel plates, 10 advanced circuits, 20 electronic circuits.
+- Separate Cave Accumulator (6x6): Normal quality 100 MJ, 6 MW input/output, 200 seconds; 100 batteries, 20 steel plates, 20 advanced circuits, 40 electronic circuits.
+- Both unlock with the existing Electric Energy Accumulators research. Migration handles existing forces independently. Vanilla and market MK accumulators are not replaced.
+- Native accumulator energy priority, quality handling, sounds, health, circuit output signal and wire range are inherited. Lights animate only while the native engine charges or discharges; no new per-tick script is installed.
+- Industrial chest fixes from 3.1.76 and all unrelated systems are retained unchanged.
+
+COMPLETED CHECKS
+- All 318 packaged Lua files passed Lua syntax parsing.
+- 68 focused Lua assertions passed using the actual Factorio 2.0.77 accumulator prototype definitions, with only sound/effect helpers stubbed.
+- Checks cover new recipe amounts, research unlocks, placement/mining references, independent researched/unresearched forces, missing research/recipes and repeat migration.
+- Loader prototype data matched the baseline in both three-tier and four-tier cases. Wind prototype data matched with its startup setting enabled and disabled.
+- New prototype fields were checked against Factorio 2.0.77's official prototype schema.
+- All 23 added/replaced PNG files decoded successfully; referenced frames fit their atlases.
+- Loader bodies fit within the corresponding original body extents. Canvas dimensions, scale and shift are unchanged.
+- Accumulator body bounds at game scale: 3x3 = 75x83.5 pixels within 96x96; 6x6 = 166x175 within 192x192. Shadows use separate native shadow layers.
+- Wind frames fit the original canvas; the base remains stationary and the 120-degree three-blade loop closes with at most 1/255 channel rounding difference.
+
+TEST IN FACTORIO
+This build has not been loaded in the Factorio engine here. Static and focused Lua checks do not replace an in-game test.
+1. Load a copy of the existing 3.1.76 save. A force that completed Electric Energy Accumulators should see both new recipes; a force without that research should not.
+2. Place each loader tier facing all four directions; switch input/output, check arrows, filters, animated belt visibility and clearance next to chests/inserters.
+3. Check existing and newly placed wind turbines: alignment, rotating blades, shadow, power and enable/disable setting.
+4. Place both accumulator sizes beside belts/inserters and each other. Verify 3x3/6x6 selection and placement, surplus charging, deficit discharging, full/empty states and circuit signal A.
+5. If using Quality, check a higher-quality accumulator and save/reload once. Quality scaling is provided by the native accumulator engine.
+6. Test recipe unlocks separately for multiplayer forces if the server uses more than one force.
+
+EXACT FILE CHANGES
+Modified:
+  changelog.txt
+  data.lua
+  graphics/entity/industrial-loaders/express-loader.png
+  graphics/entity/industrial-loaders/fast-loader.png
+  graphics/entity/industrial-loaders/loader.png
+  graphics/entity/industrial-loaders/neo-loader.png
+  graphics/entity/wind-turbine/wind-turbine.png
+  graphics/icons/industrial-loaders/express-loader.png
+  graphics/icons/industrial-loaders/fast-loader.png
+  graphics/icons/industrial-loaders/loader.png
+  graphics/icons/industrial-loaders/neo-loader.png
+  graphics/icons/wind-turbine/wind-turbine.png
+  graphics/technology/wind-turbine/wind-turbine.png
+  info.json
+  prototypes/industrial_loaders.lua
+  prototypes/wind_turbine.lua
+
+Added:
+  graphics/entity/cave-accumulators/3x3/body.png
+  graphics/entity/cave-accumulators/3x3/charge.png
+  graphics/entity/cave-accumulators/3x3/discharge.png
+  graphics/entity/cave-accumulators/3x3/reflection.png
+  graphics/entity/cave-accumulators/3x3/shadow.png
+  graphics/entity/cave-accumulators/6x6/body.png
+  graphics/entity/cave-accumulators/6x6/charge.png
+  graphics/entity/cave-accumulators/6x6/discharge.png
+  graphics/entity/cave-accumulators/6x6/reflection.png
+  graphics/entity/cave-accumulators/6x6/shadow.png
+  graphics/icons/cave-accumulators/3x3.png
+  graphics/icons/cave-accumulators/6x6.png
+  locale/en/cave_accumulators.cfg
+  locale/ru/cave_accumulators.cfg
+  migrations/3.1.77.lua
+  prototypes/cave_accumulators.lua
+  TESTING-3.1.77.txt
+
+No files removed. Runtime control scripts, settings, existing migrations and unrelated prototype files are byte-identical to 3.1.76.

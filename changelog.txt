@@ -1,0 +1,1404 @@
+---------------------------------------------------------------------------------------------------
+Version: 3.3.6
+Date: 2026-11-02
+  Features:
+    - Add a golden Coin Maker based on assembling machine 3. Inserters can deliver different saleable items together and collect coins from a separate output.
+    - Sell complete normal-quality batches independently at the existing Market Sell prices, with a base time of two seconds per transaction. Full output or missing power pauses sales safely.
+    - Add one Coin Maker technology after Automation 2: 500 red/green science units, 60 seconds each before existing research-difficulty scaling.
+    - Coin Maker construction requires 50 steel plates, 200 iron gear wheels, 50 electronic circuits and one assembling machine 2.
+    - Provide exactly four module slots, accepting speed and efficiency modules only. The same category restriction applies to beacon effects.
+    - Use 500 kW fixed drain and 1.5 MW working consumption for a total of 2 MW without modules. Native speed/efficiency bonuses affect only the working component.
+  Info:
+    - Based on the main-edition 3.3.5; its four earlier fixes are retained.
+    - See TESTING-3.3.6.txt for native-engine checks and graphical-client limitations.
+---------------------------------------------------------------------------------------------------
+Version: 3.3.5
+Date: 2026-11-02
+  Bugfixes:
+    - Remove the Power armor MK2 ingredient from Mech armor, replacing it with the agreed direct materials so equipment-grid research no longer blocks crafting. Update its recycling recipe to match.
+    - Allow researched underground belts and pipes to be assigned to the quickbar from the held stack, retaining official quickbar item names and quality.
+    - Preserve underground item counts when building, returning the cursor, transferring inventory items and migrating old cursor balances.
+    - Adapt held blueprints and blueprint books to the current force's underground reach so staged blueprints can overlap existing researched belts and pipes.
+    - Synchronize existing underground pipes and underground ghosts after reach research or configuration changes; keep official construction supplies for robots.
+  Compatibility:
+    - Add Portable Nested Chests as an optional dependency.
+  Info:
+    - Test build based on the original main-edition 3.3.3. The discarded 3.3.4 Advancing Collapse changes are not included.
+    - See TESTING-3.3.5.txt for executed native-engine tests and remaining graphical-client checks.
+---------------------------------------------------------------------------------------------------
+Version: 3.3.3
+Date: 2026-10-31
+  Bugfixes:
+    - Invalidate derived ceiling-support caches before force-merge cleanup, preventing stale force references while retaining queued collapse jobs.
+    - Preserve ammunition, durability and other native stack metadata during partial Cave Store Box transfers and legacy belt draining.
+    - Fit Uranium and Mineral cave information panels within the native text limit, retaining saved timer durations and the exit/death warnings.
+  Info:
+    - A limited patch based on the supplied main-edition 3.3.2. No balance, startup-default, prototype or asset changes.
+    - See TESTING-3.3.3.txt for executed checks, exact changed files and remaining test limits.
+---------------------------------------------------------------------------------------------------
+Version: 3.3.2
+Date: 2026-10-26
+  Changes:
+    - Recognize copied Cave worlds through engine clone events and track their owner forces independently of surface names.
+    - Place starter trains and shelters after a character arrives on its Cave world; keep unowned templates and lobbies inactive.
+    - Scope Main Train and Shelter defeat, truces, countdowns and resets to the losing force while another Cave team is active.
+    - Track per-world Advancing Collapse and per-force home, research, offline-body, starter-oil and cleanup state.
+    - Preserve compatible saved state, force relationships and the existing Diggy remote interface.
+  Compatibility:
+    - Add a generic optional adapter API for effective team membership, staged starts, pauses and interior ownership.
+    - Companion MTS integration is a separate mod; the Cave core does not detect or call a specific team mod.
+    - CAVETORIO remains a single-force feature and is outside this multi-team update.
+  Info:
+    - Local server playtest build based on the supplied 3.3.1 archive. See TESTING-3.3.2.md for executed headless checks and client-only limitations.
+---------------------------------------------------------------------------------------------------
+Version: 3.3.1
+Date: 2026-10-25
+  Changes:
+    - Bump the repaired package from 3.3.0 to 3.3.1 so Factorio recognizes it as a new mod release.
+    - Retain all accumulator charging, item transfer, item metadata and exterior power connection fixes from the repaired 3.3.0 build.
+  Info:
+    - Runtime files are unchanged from the repaired 3.3.0 build tested with Factorio Headless 2.1.23. See TESTING-3.3.0.txt for those tests and their limits.
+    - Version 3.3.1 was checked for package integrity and matching archive, root folder and info.json versions; headless tests were not repeated for this metadata-only bump.
+---------------------------------------------------------------------------------------------------
+Version: 3.3.0
+Date: 2026-10-25
+  Changes:
+    - Train and Shelter battery outputs now share generation with exterior generators and can charge all ten vanilla, Cave and MK accumulator models. Preserve battery capacities, transfer rates, 25%-100% charging hysteresis and the ban on reverse charging from outside.
+    - Target Factorio 2.1.23 and later 2.1 releases, retaining optional Space Age and Quality support.
+    - Update script mining protection, activation state, fluid transfer and fluid snapshots to the Factorio 2.1 APIs.
+    - Update recipe categories, Scrap result probabilities, science-pack detection, burner fuel categories and boiler input temperatures.
+    - Preserve the configured base-quality percentage using Factorio 2.1's fractional quality scale.
+  Bugfixes:
+    - Retry blocked Train and Shelter item transfers when destination space becomes available, including partial transfers and saved pending imports, without re-importing completed exports.
+    - Move inventory stacks with Factorio 2.1's native transfer API to preserve equipment, ammunition, tags, blueprint contents, health, durability, spoilage and quality.
+    - Create hidden exterior power poles before their output interfaces; repair existing disconnected interfaces while settling their energy reserve exactly once.
+    - Use Factorio 2.1's documented RETURN key name for Ctrl+Enter in Train Interiors and Shelter.
+    - Restore Fortified information-panel text using the required plain-string format; repair existing blank panels once, including saves from the first 3.3.0 package. Keep current and legacy rules distinct and the HUD localised.
+    - Keep Fortified and Train Battery panel summaries within the native 500-character limit so exit/deadline and exterior-power warnings are not cut off. Refresh Train Battery text without replacing its panel or substation.
+    - Give all five integrated armoured-biter tiers native buildable entities so filtered settlers can build bases in 2.1. Preserve source nest families through the existing Cave expansion controller.
+    - Replace the removed base-game biter AI settings import while retaining its original flags.
+    - Exit remote view explicitly before forced physical teleportation, and use the new smart-pipette API.
+  Compatibility:
+    - Preserve prototype identities, save-state schemas, expansion ownership filters, settings and gameplay balance.
+    - Mobile Factory and Factorissimo are outside this update's scope.
+  Info:
+    - Tested with official Factorio Headless 2.1.23. See TESTING-3.3.0.txt for the executed checks and remaining client/server playtests.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.48
+Date: 2026-10-13
+  Changes:
+    - Restore the approved 3.2.43 roof-support changes on the supplied 3.2.47 base, retaining the changes from 3.2.44 through 3.2.47.
+    - Restore 90-degree rotation for the 2x3 Medium and 2x4 Large supports, directional graphics and shadows, and tile-exact 10x10, 20x20 and 30x30 coverage previews. Keep Small supports 2x2 and non-rotatable.
+    - Restore fixed five-second manual support mining across mining bonuses and quality; preserve the original construction-robot deconstruction behavior.
+    - Start new Iron, Copper, Coal, Uranium and Lost Village operations with a shared 60-minute timer from first successful entry, independent of Cave Collapse, Advancing Collapse and optional mods.
+  Bugfixes:
+    - Restore researched train recipes without a LuaTechnology effects error after turning off Advancing Collapse and Train Interiors.
+  Compatibility:
+    - Preserve already-started cave deadlines, including legacy 30-minute operations and suspended Lost Village remaining time. Re-entry does not restart the shared timer.
+    - Keep Fortified's 18-room timing at 10 minutes per room for rooms 1-6, 12 for rooms 7-12 and 15 for rooms 13-18; preserve already-entered legacy Fortified rules.
+    - Retain the Lost Village generation master switch, existing item-transfer boxes, resource balance, research, optional dependencies and the 3.2.47 terrain synchronization.
+  Info:
+    - Server playtest build. Factorio Headless 2.0.77 checks passed, including a complete native hour, old-save upgrades and reloads. Graphical-client and live multi-client server playtests remain.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.47
+Date: 2026-10-12
+  Bugfixes:
+    - Synchronize Advancing Collapse's northern clearing with complete southern rows at the actual terrain commit, rather than opening 32 rows after a native chunk boundary.
+    - Drain terrain in paired steps of at most two complete rows per tick. Keep the original erosion parameters and 256-tick interval between new terrain batches.
+    - Prefetch the next strips one chunk per controller tick, and wait for unavailable terrain instead of accumulating an unbounded reveal burst.
+    - Move the northern boundary line with the synchronized terrain front.
+  Compatibility:
+    - Preserve already-open legacy floor, resources, player structures, pending terrain edits, saved row cursors and native nest-home chunk coordinates.
+    - Retain the Advancing Collapse Queen, assault and nest-group code, all existing 3.2.46 changes, settings, prototypes and balance values.
+  Info:
+    - Server playtest build based exclusively on 3.2.46. Native Factorio 2.0.77 terrain and save/load checks passed; live multiplayer and the complete server mod pack remain to be tested.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.45
+Date: 2026-10-12
+  Changes:
+    - Make The Cave Scrap an ordinary solid resource like iron: mine it by hand, burner drill or electric drill from the start without research or sulphuric acid.
+    - Use the normal iron mining time while keeping 10 The Cave Scrap per completed mining cycle and the existing Scrap Sorting recipe and loot.
+    - Update scrap descriptions, Uranium Cave messages and information panels to distinguish free scrap mining from uranium mining.
+    - Refresh existing drill connections over The Cave Scrap once during upgrade so previously blocked drills discover the newly mineable scrap.
+  Compatibility:
+    - Keep Uranium mining research, uranium's sulphuric-acid requirement and Uranium processing unchanged.
+    - Preserve the five cave changes delivered in 3.2.44, existing resource entities and amounts, save data, optional mod behavior and item transfer boxes.
+  Info:
+    - Server playtest build based on delivered 3.2.44. Native Factorio 2.0.77 Headless mining and old-save upgrade checks passed; graphical and live multiplayer playtests remain.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.44
+Date: 2026-10-12
+  Bugfixes:
+    - Respawn players killed inside Iron, Copper, Coal, Uranium and existing Lost Village caves at their force spawn on the parent surface, matching Fortified.
+    - Start Darkness Infestation at entry in all six cave interiors, with the existing 30-second unlit grace and powered-lamp protection.
+    - Allow Fortified darkness attackers to reach players in the blue hall while retaining room defender barriers and objectives.
+  Changes:
+    - Replace item transfer belts in the five transfer-equipped cave types with paired Industrial Store Boxes: right Input, left Output, with two clear tiles between each box and the portal footprint.
+    - Provide only the transfer boxes; no inserters, loaders or attachment items are created or granted with them.
+    - Set Core Iron, Copper, Coal and Uranium cave operation time to 60 minutes from first entry, independent of Bob's Ores.
+    - Generate broad, rich uranium/scrap beds in Core without Bob's Ores; retain Bob's enabled thorium beds and the original non-Core resource balance.
+  Compatibility:
+    - Preserve native item stacks, quality and metadata when converting old belts; retain first-entry times on open legacy Core caves.
+    - Preserve closed caves, existing revealed resources, Lost Village's master switch and optional-mod dependencies.
+  Info:
+    - Server playtest build based on the tested 3.2.42 branch. Native Factorio 2.0.77 Headless checks passed; graphical and live multiplayer playtests remain.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.42
+Date: 2026-10-11
+  Changes:
+    - Split roof supports into chained 10x10, 20x20 and 30x30 research after steel processing, costing 300, 500 and 700 units at 30 seconds per unit.
+    - Use red/green science for 10x10, add military/chemical science for 20x20, and add production science for 30x30. Each stage unlocks only its own recipe.
+    - Hide all three stages and disable their recipes whenever Cave Collapse is disabled, including newly created, reset and merged forces.
+  Compatibility:
+    - Preserve all three earned roof-support unlocks on saves that completed the previous shared research.
+    - Retain the approved columns, shadows, native blue previews, footprints, coverage, costs, handcrafting, health and stack sizes.
+    - Darkness Infestation source and existing safe-zone rules are unchanged.
+  Info:
+    - Release candidate; stable publication is blocked by the dark-entry safe-zone difference found in Headless tests.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.41
+Date: 2026-10-10
+  Graphics:
+    - Import the approved steel roof-support columns and short shadows, with equally tall masts and reinforced 2x2, 3x3 and 4x4 footings.
+    - Add the transparent roof-support research/item icon.
+  Bugfixes:
+    - Show the native moving blue 10x10, 20x20 or 30x30 range while a roof support is in the cursor, before placement.
+    - Show all nearby placed roof-support ranges of every size while holding or hovering a support, without an entity-count cap.
+    - Reuse the coverage-chunk index and render objects; refresh on cursor, selection, view and entity changes.
+  Compatibility:
+    - Preserve tile-exact roof protection, research, costs, stack sizes, collapse settings and saved supports.
+    - Explicitly retain ordinary crafting for both handcrafting and assemblers. Supports require no electricity.
+  Info:
+    - Test build. Moving-cursor appearance and sprite/shadow alignment await a graphical-client playtest.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.40
+Date: 2026-10-10
+  Features:
+    - Add the three structural roof supports with 10x10, 20x20 and 30x30 tile-exact protected squares, unlocked together after steel processing.
+    - Apply the agreed ammunition, fuel, gear and TNT stack sizes, and the additional market sell offers.
+  Info:
+    - Test build based on the supplied 3.2.39 archive.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.39
+Date: 2026-10-10
+  Changes:
+    - Limit starter/progression rooms to three successful rooms per force and per Vulcanus, Gleba, Fulgora or Aquilo family across the campaign, in both normal Cave regions and Advancing Collapse.
+    - Prefer the initial three opportunities and display 1/3, 2/3 and 3/3. Later visits to the same family retain the exhausted quota.
+    - Return later empty rooms to ordinary geometry and resource placement. Each Fulgora opportunity includes the real Vault progression trigger.
+  Compatibility:
+    - Preserve quotas across save/load and force merges; recover legacy progression history from saved room footprints and counters.
+    - Retain existing rooms and Base/Space Age setting scopes.
+  Info:
+    - Server playtest build based on the supplied stable 3.2.38; awaiting the server playtest.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.38
+Date: 2026-10-09
+  Changes:
+    - Apply the agreed Fortified room population: 300/250/200 mixed mobile enemies, 12 nests and 10 worms per room, with fixed Easy/Medium/Hard families and progressively stronger placements.
+    - Use 6 guns in Easy, 4 guns and 4 lasers in Medium, and 4 guns, 4 lasers and 4 flamethrowers in Hard. Keep nests at least 20 tiles apart and turrets at least 15 tiles apart.
+    - Give each new room 10/12/15 minutes. Keep the final room's remaining timer running after clearance.
+    - Each additional simultaneous player increases only the initial mobile enemy population by 50%; static defences stay fixed.
+    - Dedicated Fortified nests use fixed tier offspring and 2.5/4.25/6-second spawn intervals, retaining native population and placement limits.
+    - Separate enemy flamethrower effects from player fire so enemy flame turrets spare allies while player fire remains effective.
+    - Remove Stage 1 and playtest labels from the mod title and Fortified information panels. The mod title is The Cave.
+  Compatibility:
+    - Preserve already-entered raids, their existing layouts, enemy rules and timers. Convert only new or unentered raids.
+    - Preserve the 3.2.37 wall-movement fix, room geometry, portals and original total reward budgets.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.37
+Date: 2026-10-09
+  Bugfixes:
+    - Stop Fortified enemies teleporting backwards when they approach room walls. Recover only units outside the active room; retain native wall and blue-hall collision barriers.
+  Info:
+    - Focused fix on the 3.2.36 playtest branch. The newly agreed enemy composition and timers are not part of this build.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.36
+Date: 2026-10-09
+  Changes:
+    - Fortified Stage 1: 18 equal 250x35 rooms in nine pairs, separated by 35-tile void gaps. Six rooms per difficulty tier.
+    - Add a fully open 35x595 blue hall that enemy units cannot enter. Build rooms sequentially after clearance.
+    - Use only two interior portals: top arrival/return and one bottom EXIT ONLY. Remove checkpoint exits from the new layout.
+    - Keep 8 blue, 6 yellow and 4 red caches per room (108 total), with unchanged total item budgets.
+  Compatibility:
+    - Keep previously entered circular and spiral interiors, their existing rewards and deadlines. Convert only new/unentered vaults.
+  Info:
+    - Stage 1 PLAYTEST. Final enemy composition and the previously reported disappearance issue remain deferred.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.35
+Date: 2026-10-09
+  Changes:
+    - Fortified Stage 1: 350-tile first corridor, 20-tile corridor width and 35-tile out-of-map separation. Retain 15 stages and a 40x40 centre in a 390x425 layout.
+    - Place 8 blue caches per Easy corridor, 6 yellow per Medium and 4 red per Hard, all near corridor ends. Preserve the previous total item rewards across the 90 caches.
+    - Make the on-ground Corridor number labels four times larger.
+  Compatibility:
+    - Preserve already-entered circular and earlier spiral vaults, their rewards and timers. New and unentered vaults use the revised layout.
+  Info:
+    - Stage 1 TEST. The reported biter disappearance/return issue and final enemy composition remain deferred.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.34
+Date: 2026-10-09
+  Bugfixes:
+    - Fix the Fortified Stage 1 entry crash caused by the reserved GUI element name "value" in the corridor timer.
+  Info:
+    - Continues the 3.2.33 Stage 1 playtest. Enemy quantities remain provisional.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.33
+Date: 2026-10-09
+  Features:
+    - Stage 1 Fortified spiral PLAYTEST, based on the approved stable 3.2.30. Enemy quantities remain provisional.
+    - Replace unentered/new Fortified interiors with 15 sequential stages, protected deferred rewards, coloured floors, exit-only checkpoints, and a shared stage timer above Cave Information.
+    - Preserve previously entered legacy vaults and their existing deadlines until closure. Preserve all existing reward budgets.
+  Info:
+    - This is a test build, not a newly approved stable release. See FORTIFIED-STAGE1-TEST.txt.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.30
+Date: 2026-10-08
+  Bugfixes:
+    - Fix the Advancing Collapse mass-stall reproduced on the supplied 3.2.29 save while the collapse front is moving. Commit terrain mutations in bounded 256-tick batches so native attacker path searches can make progress.
+    - Preserve erosion speed and immediate entity cleanup. Persist pending terrain edits across saves and flush them at recovery, configuration changes, no-player pauses and defeat.
+  Info:
+    - Retain all 3.2.29 nest-group rules, production counts, immediate attack commands, 30-second selective watchdog, two-minute nest rebuilds and boundary visuals. See TESTING-3.2.30.md for regression evidence and test limits.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.29
+Date: 2026-10-08
+  Changes:
+    - Advancing Collapse test build based only on the user-approved 3.2.27.
+    - Expand the rolling assault clearing to the full 510-tile map width: sixteen native chunk columns and five rows, with clipped outer columns.
+    - Reserve ten groups of three nests, one nest per native chunk, with a spare chunk between groups. Unlock one group at combat minute 0, 4, 8, through 36; share the 30-nest cap with Queen placement.
+    - Rebuild destroyed nests after two simulation minutes in their remembered home chunk. Blocked homes wait; homes consumed by the moving collapse can receive a new reservation. Recovery clears the round's reservations and rebuild jobs.
+    - Send nest offspring the same immediate train/Shelter objective attack command as wave attackers, including a guarded native-spawn event fallback.
+    - Check tracked attackers every 30 seconds and renew commands for idle or uncommanded units; leave moving units and active combat alone. Retain the existing five-minute stale escape fallback.
+    - Replace the area rectangle with one full-width northern boundary: red in combat, green in preparation/recovery. Clip terrain-generation requests at the finite map edges.
+  Info:
+    - Preserve the saved wave clock and migrate existing nests without replacing their entity IDs. Keep wave unit counts, the 20-second scripted nest production interval, unit cap and special wave-60/recovery timings.
+    - See TESTING-3.2.29.md for the exact changed files, engine checks, limits and user test.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.27
+Date: 2026-10-05
+  Changes:
+    - Stage 2 Train Interiors and Shelter Defense maintenance test, based only on the user-tested 3.2.26.
+    - Remember successful fixed Garden setup and validate saved native references instead of repeating fixture setup every 15 ticks; preserve live item/fluid transfers and repair changed or incomplete setups.
+    - Correct Train Garden script-origin copper-wire detection. Clean legacy hidden Train radars once per surface/configuration migration instead of every player's map refresh.
+    - Cache nearby exterior power poles for stationary bridges; refresh on movement, changed ownership/entities and pole build/clone events, with a bounded 300-tick local fallback for other mods' silent changes.
+    - Skip empty inventory enumeration and stationary power-interface teleport; retain battery energy accounting, live cameras, shields, pollution and defense waves.
+    - Remove the duplicate 60-tick global lighting pass; retain normal lighting enforcement and live solar-display synchronization.
+  Info:
+    - All Stage 1 cave modules, settings/defaults, prototypes, resources, rewards, enemy/Bob balance and collapse gameplay are retained. See TESTING-3.2.27.md for checks and the next user test.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.26
+Date: 2026-10-05
+  Changes:
+    - Stage 1 cave maintenance test for Uranium, Iron, Copper, Coal, Fortified Vaults and existing Lost Villages, based only on the user-tested 3.2.25.
+    - Remove fixed Uranium fluid transfer ports and their recurring Lua fluid shuttle. Remove legacy ports once when updating existing caves; preserve native item belts and power poles.
+    - Verify native cave belt/power connections once at setup or configuration migration, instead of repeatedly repairing them on tick or successful later entries.
+    - Apply each cave's existing fixed lighting profile at creation/configuration migration instead of writing it every tick or through the recurring global cave lighting pass.
+    - Enable Show Tag in Chart on new and existing cave information panels; retain Always Show in Alt Mode.
+    - Cache validated Lost Village entity references while preserving live mission, trade and reward checks.
+  Info:
+    - Cave deadlines, closure, resources, rewards, Bob enemy balance and the Lost Village generation shutdown remain unchanged. Train Interiors and Shelter Defense are deferred to stage 2. See TESTING-3.2.26.md.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.25
+Date: 2026-10-05
+  Bugfixes:
+    - Stop spawning Demolisher guardians when a Vulcanus progression room opens; retain its resource and research bootstrap contents.
+    - Recheck entity validity inside the collapse crushing loop, since killing a segmented unit can invalidate other entities already returned by the same query. Applies to timed and sparse collapses.
+  Info:
+    - Test build based on the user-tested 3.2.24, retaining its Bob evolution compatibility and Remote View fixes. See TESTING-3.2.25.md.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.24
+Date: 2026-10-05
+  Bugfixes:
+    - When Bob's Enemies is active, select ordinary dig-ambush and Darkness Infestation tiers from real parent-surface evolution without The Cave depth or global-difficulty tier adjustments.
+    - Preserve the original tier adjustments when Bob's Enemies is absent. Keep enemy prototypes, health, spawn counts, caps, intervals, rewards and existing enemies unchanged.
+  Info:
+    - Test build based on 3.2.23, retaining the Remote View fixes from the supplied 3.2.21 branch. See TESTING-3.2.24.md.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.23
+Date: 2026-10-05
+  Bugfixes:
+    - Require a live physical character, the correct surface and normal reach for cave entrances, exits and Fortified cache interactions. Remote View no longer starts these physical actions.
+    - Guard Train/Shelter entry hotkeys and garden portals; preserve the existing ten-tile entry range, portal rectangles and Force ownership.
+    - Use physical surface and position together for cave deadlines, pickups, Advancing Collapse progression/combat and localized Fulgora lightning.
+    - Verify physical transfers before committing return state, clearing Warp/Reset inventories or deleting occupied surfaces. Retry failed train cleanup and Warp recovery safely.
+    - Keep the paid waypoint Teleporter available in Remote View, with physical return history and unchanged prices/research/cooldowns.
+  Info:
+    - Test build based only on the supplied 3.2.21 archive; no changes from 3.2.22 are merged. See TESTING-3.2.23.md for offline checks and the required in-game tests.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.21
+Date: 2026-10-04
+  Changes:
+    - Increase new ordinary digging-room corridors to 20 tiles long and 6 tiles wide in every region and full-dig mode. Keep the whole room beyond the far end and validate the enlarged footprint before carving.
+  Info:
+    - Test build based only on the tested 3.2.20. Existing discovered rooms and separate scheduled/extraction layouts are preserved. See TESTING-3.2.21.md.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.20
+Date: 2026-10-04
+  Changes:
+    - New ordinary digging rooms use one straight 10-by-4 corridor. Validate the full connection and room in closed terrain in every region before carving; try other directions without rerolling the room identity. Preserve discovered and separately scheduled caves.
+    - Player/team tank collisions and tank weapons resolve the normal digging resource, room and enemy pipeline. Other ordinary weapons and rubble remain unchanged.
+    - Add the Market Startup Enable/Disable setting, enabled by default. Disable the shop and all new coin rewards, including finite nest carry, waves, recovery, treasure and starter coins. Omit market-only portable power from new starter packs; preserve existing assets and depleted nest balances.
+    - Atomic rocket rock deaths resolve normal digging outcomes after native damaging wave projectiles finish. Keep native combat damage, protect Cave floor/resources from crater tile replacement, and bound queued work per tick. Repeated blasts do not reward old ground.
+  Info:
+    - Test build based only on 3.2.19. See TESTING-3.2.20.md for completed offline checks and required in-game tests.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.19
+Date: 2026-10-04
+  Changes:
+    - Add the Fortified Cave Startup Enable/Disable option, enabled by default. Disable stops new ordinary and Advancing Collapse entrances, including uncreated saved reservations and test-command creation.
+    - Preserve previously discovered Fortified caves, including unused entrances, contents, ownership, access and normal timers/closure. Re-enabling restores new discovery without rerolling saved zone plans.
+  Info:
+    - Based only on 3.2.18. Cave Collapse exemptions and the Lost Village shutdown remain intact; loot, balance and Uranium logic are unchanged. See TESTING-3.2.19.md for checks and remaining in-game tests.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.18
+Date: 2026-10-04
+  Changes:
+    - Exempt underground Iron, Copper, Coal, Uranium, Lost Village and Fortified Vault surfaces from structural Cave Collapses. Cancel their saved roof jobs and countdown markers; preserve parent-map collapses, existing rubble and timed cave deadlines.
+    - Temporarily disable all new Lost Village entrances with an internal switch. Remove its Startup setting and test command; stop ordinary and Advancing Collapse discovery. Retain code, prototypes, previously discovered entrances, contents, access, trades and existing timer rules until normal closure.
+  Info:
+    - Based only on 3.2.17. Uranium transfer and performance logic are unchanged. See TESTING-3.2.18.md for checks and remaining in-game tests.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.17
+Date: 2026-10-03
+  Bugfixes:
+    - Fix the Information and Controls Caves tab exceeding the 20-parameter localised-string limit with many online players.
+  Changes:
+    - Show shared Cave/team Score, Power, Threat, Technology and Industry above a separate online-player coin leaderboard. Give each player their own rank and sort by exact coins, highest first, with names breaking ties.
+    - Reduce direct-dig Worm chances to one quarter, including Bob Worms. Rejected Worm selections produce no replacement; retain enemy strength, other family rolls and room/nest guardians.
+    - Make Basic Big Pole, Lamp Pole and Small Metal Electric Pole fireproof, preserving their health and protection against other damage types.
+    - Sell Processing Units, Rocket Fuel and Low Density Structures for 20 coins each; sell 100 Iron Ore, Copper Ore, Coal or Stone for 20 coins, and 100 Iron Plates, Copper Plates or Stone Bricks for 40 coins. Add Iron Ore, Copper Ore and Stone Bricks to Sell.
+    - Add Landfill to Buy > Other for 20 coins each. Show Wood x 5 for 1 coin, with quantity buttons buying multiples of that bundle.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.16
+Date: 2026-10-02
+  Features:
+    - Optional Bob's Enemies 2.1.0 support, activated only when that separate mod is enabled. Give eligible original, Arachnid and seven Bob family nest rooms equal shares without increasing combined encounter frequency.
+    - Keep standard Cave rooms: three same-family nests and 2/3/4/5 same-family worms by zone. With Bob Super Spawners enabled at Evolution 0.8+, a 10% room chance replaces one ordinary nest with one native super nest.
+    - Add eligible Bob families to direct-dig encounters. Read native Bob spawner result_units for its eight unit tiers and use Bob's worm tier rule, preserving Cave pacing and raw Evolution progression.
+    - Connect Bob enemies to same-family nesting/expansion, finite nest coin budgets and the approved coin/Ore Blood rewards. Preserve expansion quality and protect existing or newly scripted neighbouring base parts.
+  Info:
+    - Continues only from tested 3.2.15. Bob Enemies and Bob Library remain separate installations; Bob Ores and Uranium Cave logic are unchanged. See TESTING-3.2.16.md for exact changes, checks, randomized-family-order limitation and remaining engine tests.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.15
+Date: 2026-10-01
+  Changes:
+    - Give enabled upper-surface Bob ores separate, broad, single-resource deposits with at least five empty tiles between Bob solids and other generated solid resources.
+    - Share deterministic deposit reservations with core and Mobile Factory ore generation so later digging cannot introduce mixed ore tiles. Distribute all 12 upper-surface Bob ores in balanced groups; preserve per-tile richness and individual enablement.
+    - Leave room for future regular/starter oil wells and respect existing resources with custom mining categories. Keep the 15-tile companion-water rules, thorium beds and 30/60-minute Uranium Cave behavior.
+  Info:
+    - Continues only from the tested 3.2.14 release. No old-save resource migration. See TESTING-3.2.15.md for checks and the remaining in-game test.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.14
+Date: 2026-10-01
+  Changes:
+    - With Bob's Ores active, new Uranium Cave expeditions last 60 minutes. Without it, new expeditions retain 30 minutes. Already-started expeditions keep their saved deadline.
+    - Reveal wide, separate beds of uranium, salvage scrap and enabled Bob's thorium in Uranium Caves, with 10x per-tile richness. Stop generating new thorium veins on upper Cave surfaces.
+    - Preserve existing deposits and depleted bed tiles across reloads. Update English/Russian cave guidance and show actual remaining time on entry.
+  Info:
+    - Continues only from the delivered 3.2.13 build based on the supplied 3.2.12(3). See TESTING-3.2.14.md for verification and remaining in-game checks.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.13
+Date: 2026-10-01
+  Changes:
+    - Optional Bob's Ores support: reveal each enabled solid resource in a separate vein while digging. Respect Bob's Space Age tungsten rule.
+    - Discover one Ground Water and one Lithia Water well beside each oil well, when enabled. Keep well centres at least 15 tiles apart and clear pump footprints.
+    - Preserve existing oil generation, resource prototypes and Mobile Factory support. Bob's Ores and Bob's Library remain separate installations.
+  Info:
+    - Based only on the supplied 3.2.12(3) archive. See TESTING-3.2.13.md for validation and remaining in-game checks.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.12
+Date: 2026-09-30
+  Bugfixes:
+    - Advancing Collapse: remove orphaned preparation, recovery and combat labels with their matching outlines when upgrading an existing save. Rebuild the current indicator from saved state without restarting waves or moving the collapse front.
+    - Destroy area renderings before soft reset clears their saved IDs, preventing stale green Recovery Break markers in later runs.
+  Info:
+    - Based only on 3.2.11. See TESTING-3.2.12.md for changed files, validation and in-game checks.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.11
+Date: 2026-09-28
+  Changes:
+    - Core progression: Heating Tower now requires Concrete. Keep its separate research at 200 Automation and 200 Logistic science packs, 30 seconds per unit, with the same four thermal recipe unlocks.
+  Info:
+    - Continues from 3.2.10. See TESTING-3.2.11.md for validation and in-game checks.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.10
+Date: 2026-09-28
+  Changes:
+    - Core progression: Heating Tower now follows Advanced Material Processing and costs 200 Automation plus 200 Logistic science packs. Remove Chemical science from its cost; keep the 30-second research unit time and all four thermal recipe unlocks.
+  Info:
+    - Continues from 3.2.9. See TESTING-3.2.10.md for validation and in-game checks.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.9
+Date: 2026-09-28
+  Changes:
+    - Core progression: Heating Tower now requires Chemical Science Pack and costs 200 each of Automation, Logistic and Chemical science, at 30 seconds per unit. Remove its Gleba prerequisite and Copper Stromatolite mining trigger; keep all four thermal recipe unlocks.
+  Bugfixes:
+    - Restore the short Advancing Collapse setting title in both English and Russian, removing migration notes from the name.
+  Info:
+    - Continues from 3.2.8. See TESTING-3.2.9.md for validation and in-game checks.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.8
+Date: 2026-09-27
+  Changes:
+    - Advancing Collapse: split each new 32-chunk-deep zone into four consecutive eight-row bands. Reserve one random chunk per eligible cave type in each band, giving four entrances of each eligible type per zone.
+    - Keep the existing zone eligibility: Fortress from zone 2, Uranium from zone 3, Lost Village on odd zones from 3, and Iron/Copper/Coal on even zones from 2. Zone 1 remains empty of these six entrance types.
+    - Preserve centre placement, excluded horizontal edge columns, the shared eight-neighbour exclusion across band and zone boundaries, existing feature switches, Main Train protection and blocked-site retries.
+    - On upgrade, retain generated or partially generated zones and all saved 3.2.7 plans, including pending entrances. Freeze the four-band transition once after the furthest retained zone across main/team maps. New games and soft resets start with the new policy.
+  Info:
+    - Continued exclusively from the delivered 3.2.7 test build. Runtime edits are limited to advancing_caves.lua and one configuration hook in control.lua. Zone dimensions, interiors, loot and all other gameplay systems are unchanged.
+    - Validation: 158,400 placements across 100 seeds, band/border checks, deterministic fallback checks, save-upgrade checks, and mocked creator/discovery regression checks passed. Real Factorio gameplay testing is still required. See TESTING-3.2.8.md.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.7
+Date: 2026-09-27
+  Features:
+    - Advancing Collapse only: new zones have 32 chunk rows (1024 tiles). Preserve the existing 510-tile ribbon width and all generated or partially generated old 704-tile zones. Save the transition once and continue zone numbering.
+    - Plan one Fortress in every zone from 2, one Uranium in every zone from 3, one Lost Village in odd zones from 3, and one each of Iron, Copper and Coal in even zones from 2. Existing feature switches remain respected.
+    - Save deterministic random entrance chunks; prohibit horizontal columns 1 and 16 and all eight neighbours of any selected cave chunk, including across zone boundaries. Centre each existing entrance structure in its selected chunk.
+  Bugfixes:
+    - New-zone cave discovery bypasses legacy evolution, probability, pity and same-type distance gates. Prevent extra legacy random entrances in these zones; retain original selection in old zones and other modes.
+    - Retain complete footprint, map-edge, Main Train and player-asset checks. Retry discovered blocked sites without rerolling, duplicating entrances or consuming their quota on a failed placement.
+  Info:
+    - Based only on the supplied 3.2.6 archive. No changes to cave interiors, rewards, prototypes, graphics or dependencies. See TESTING-3.2.7.md for the exact file list and test scenarios.
+    - Validation uses a Lua 5.4 host with mocked Factorio APIs, not an in-game test. Real Factorio gameplay and save-upgrade testing are still required.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.6
+Date: 2026-09-27
+  Bugfixes:
+    - Move the Advancing Collapse status text two tiles below the top border, inside the clearing. Increase text scale from 1.2 to 2 and outline width from 3 to 4. Keep the existing green/red colours, area dimensions and timers. Update saved render objects in place.
+    - Validate complete cavern room and entrance footprints against finite map boundaries and Advancing Collapse's hard void, including all upper ports, pipes, power, panel and return access. Apply to every cavern shape and all Uranium, Mineral, Lost City and Fortified Vault entrances.
+    - Stop discovery corridors at hard boundaries. Fit edge rooms inward without rerolling their identity; recheck regional identity, spacing, existing rooms, player assets and the Main Train safety margin. Correct alternate-side chamber geometry for automated discoveries.
+    - Prepare a complete dry entrance pad only after validation. Constrain Lost City's hardware searches to this pad and reject unsafe or incomplete entrance sites before spawning entities.
+    - On configuration change, attempt to repair existing out-of-map entrance groups at nearby legal sites. Clone the complete upper group before committing records; keep the child surface, operation timer, rewards and progress. Roll back newly cloned entities if placement fails. Leave closed caves, caves consumed by the collapse, missing hardware and blocked sites unchanged.
+    - Relocated entrances retain their internal transfer records. Player-built external belts, pipes and wires may need reconnecting at the new location.
+  Info:
+    - Based only on 3.2.5. Runtime changes: advancing_area.lua, caverns.lua, cave_placement.lua (new), uranium_caves.lua, mineral_caves.lua, lost_city.lua and fortified_vaults.lua.
+    - Validation: all 342 Lua files parse with Lua 5.2; ten focused mocked-API checks and twenty existing regression checks passed. A real Factorio server/gameplay test is still required.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.5
+Date: 2026-09-27
+  Changes:
+    - Train Interiors: remove driver voting, temporary pilot approvals and approval expiry, with or without Advancing Collapse. Keep occupied-driver checks and clear old vote windows on upgrade.
+    - Fortified Vault: newly entered vaults have a 350-tile circular diameter, eight scattered strongholds and 10,000 rocks. Preserve the 70x70 entry safe area and shared 30-minute raid timer.
+    - Each stronghold has 8 blue-grey, 6 gold and 4 red caches. Apply all edited spreadsheet rows as per-group totals split between matching caches, including module guarantees and the requested capsules, rockets, accumulators and inserters.
+    - Use the new Medium/Hard/Nightmare initial defender counts. Chest alarms remain 3/4/5 enemies. Previously entered vaults retain layout, defenders, loot and progress.
+    - Ordinary Recovery Breaks after 20 waves now last 15 minutes; the special 60-wave break stays 30 minutes. Extend an existing ordinary break once by the additional five minutes.
+    - Advancing Collapse: open and outline an exact 128x160 (4x5 cells) rectangle. It is green, stationary and enemy-free throughout the two-hour preparation and during Recovery Breaks; red during combat, moving with the collapse. Show status and countdown above the outline.
+    - Pick a saved random cell out of twenty for each wave; try other cells if blocked. Preserve player clearance, attack targets, wave counts, unit caps and chase behaviour.
+    - Add one usable starter oil well, one 4x4 water pond with pump access and an instruction display panel. Choose empty ground clear of the starter train, its exit, rails, resources and buildings. Never refill supplies on recovery or reload.
+    - Preserve the 3.2.4 manual-crafter crash fix and all unrelated mechanics.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.4
+Date: 2026-09-26
+  Bugfixes:
+    - Fixed the "No manual crafter" error when loading an existing Advancing Collapse save after a mod update. Skip unavailable player crafting queues and continue processing other players.
+    - Preserve the four rolling-stock crafting restrictions and ordinary queued crafts. Handle Factorio's void cancellation return and stop if cancellation makes no progress.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.3
+Date: 2026-09-26
+  Changes:
+    - Advancing Collapse: ordinary waves last two minutes; every 60th wave lasts ten minutes.
+    - Each assault nest produces one enemy every 20 seconds, within a shared cap of 15 live assault nests.
+    - Every 20 completed waves starts a ten-minute Recovery Break. Every 60th wave instead starts a thirty-minute break.
+    - Clear enemies from the exact rolling 96x160 area, preserve player structures and ground items, and apply normal coin rewards once. Suppress enemies entering this area during recovery.
+    - Pause advancing terrain collapse during both recovery lengths and resume without accumulated erasure.
+    - Show recovery countdowns and preserve wave/recovery progress through save/load.
+    - Remove distance-based difficulty boosts and depth announcements only on Advancing Collapse main surfaces. Room profiles use evolution; other modes and mission surfaces retain existing rules.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.2
+Date: 2026-09-25
+  Features:
+    - Added Lamp Pole beside Basic Big Pole and Lamp Post: 32-tile wire reach, 7x7 supply area, 20 kW powered lighting and no fuel value. Uses the Lamp Post Startup setting.
+    - Lamp Post research unlocks both lamps, including in already-researched saves. One Steel Plate, five Small Lamps, four Copper Cables and two Iron Plates craft one Lamp Pole by hand or in an assembling machine.
+    - Preserved Basic Big Pole's sprite frame, height, base, wire anchors and placement size; added the approved lamp head, icon and broken-lamp wreckage.
+    - Lamp Pole provides the same 30-tile powered Darkness Infestation protection as Lamp Post. Its light follows mining, destruction, robot builds, blueprint revival, cloning, teleports and save/load without adding items to blueprints.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.1
+Date: 2026-09-25
+  Changes:
+    - Every enabled Starter Pack size now includes 200 normal Rails, delivered once per round with the existing package.
+  Bugfixes:
+    - Advancing Collapse hides and disables Locomotive, Cargo Wagon, Fluid Wagon and Artillery Wagon crafting. Research, new forces and resets cannot reopen those recipes; rails and non-wagon research effects remain available.
+    - Main Train defeat immediately pauses attack controllers and collapse progression during the existing 30-second reset countdown. Temporary enemy friendship and cease-fire are restored to their original values when the new round is ready.
+    - Protect surviving and respawned characters until reset completes. Dead participants respawn before transfer to the new map; offline participants recover on joining. Existing starter-inventory retries remain once per round without reconnecting.
+---------------------------------------------------------------------------------------------------
+Version: 3.2.0
+Date: 2026-09-25
+  Changes:
+    - Added Small, Medium and Large TNT Boxes to the market's Other category for 30, 40 and 50 coins each.
+    - Loader, Fast Loader, Express Loader and Turbo Loader now cost 50, 100, 150 and 200 coins each in the market.
+    - Every enabled Starter Pack size now includes 10 standard yellow Industrial Loaders and 10 Large TNT Boxes. Disabled TNT Boxes are omitted.
+    - Lamp Post and Engine Unit can now be crafted by hand as well as in assembling machines, with existing costs and research unlocks preserved.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.100
+Date: 2026-09-25
+  Bugfixes:
+    - Deliver Starter Pack and Faster Start again after each soft reset, once the new round and character inventories are ready. Pending deliveries survive save/load and retry automatically without reconnecting; completed deliveries are never repeated on ordinary joins or respawns.
+    - Advancing Collapse catch-up now follows the current Main Locomotive on its owning team's surface, using the MTS distance rule every 250 ticks. Above 900 tiles it deletes 10 tiles every tick; at or below 900 it returns to the existing player-count rate. Player exploration no longer accelerates terrain deletion.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.99
+Date: 2026-09-25
+  Bugfixes:
+    - TNT Boxes now follow only their own Startup setting in every game mode, including Cave Collapse and Advancing Collapse.
+    - Removed the collapse-mode restrictions from TNT research, items, recipes and placement. Updated English and Russian setting descriptions and disabled messages.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.98
+Date: 2026-09-24
+  Features:
+    - Added Small Metal Electric Pole as a separate alternative beside the original Small Electric Pole. One Iron Plate and two Copper Cables produce two poles, unlocked with the original pole.
+    - Added its iron body, icon, four connection views, shadow, reflection, metal destruction particles and dedicated two-layer remnants.
+  Bugfixes:
+    - Basic Big Pole now leaves its approved metal wreckage when destroyed. Its standing graphics, recipe, placement and electrical behavior are unchanged.
+    - Existing saves that already unlocked Small Electric Pole also receive the new metal-pole recipe, without resetting technologies or other recipes.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.97
+Date: 2026-09-24
+  Changes:
+    - Renamed The Cave Big Wooden Pole to Basic Big Pole. It now uses two Iron Plates and four Copper Cables.
+    - Replaced its world sprite and item icon with the approved iron design, aligned to the existing wire connection points and ground position.
+    - Preserved the original pole identifier, sprite geometry, shadow, wire reach, supply area, selection and collision settings.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.96
+Date: 2026-09-24
+  Changes:
+    - Replaced Lamp post graphics with the approved futuristic design, including its icons, light mask, shadow, reflection and wreckage.
+    - Lamp post now requires only five Small Lamps and one Steel Plate. Removed Plastics from its research prerequisites.
+    - Lamp post research still costs 50 red and 50 green science before difficulty multipliers. Lighting and powered protection behavior are unchanged.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.95
+Date: 2026-09-24
+  Changes:
+    - Lamp post research now costs 50 red and 50 green science. Plastics replaces the blue-science prerequisite.
+    - Cave Accumulator base crafting times are now 20, 30, 40 and 50 seconds for 3x3, 6x6, 10x10 and 20x20.
+  Bugfixes:
+    - Resource pipetting no longer selects market Electric Mining Drills MK1-MK5. Owned standard drills take priority over ghosts, preserving item quality.
+    - Market drills can still be selected manually or pipetted from placed drills. Resource filters and per-force research are respected.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.94
+Date: 2026-09-24
+  Bugfixes:
+    - Removed the invalid empty ammo action from the passive Advancing Collapse Queen prototype, which prevented 3.1.93 from loading. The Queen still has no attack effects; her health, movement, nest production and test command are unchanged.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.93
+Date: 2026-09-24
+  Features:
+    - Advancing Collapse gets its own passive Queen with 50,000 health at waves 60, 120, 180 and each subsequent multiple of 60. She builds up to three nests immediately and every 30 seconds, sharing the existing 24-nest limit with scheduled waves.
+    - Added /the-cave-advancing-queen-test for administrators on an active Advancing Collapse save. It spawns the same Queen without advancing waves, reports her map position, and locates an existing living Queen on repeat use.
+  Changes:
+    - Advancing Collapse waves now start every 60 seconds. Each surviving assault nest produces one reinforcement of its family every five seconds, subject to placement and the population limit.
+    - The assault population limit is now 1,000 per main surface, shared by wave attackers, nest reinforcements and Advancing Queens.
+    - The new Queen never attacks or digs. She moves within the existing open area, has no regeneration, and stops laying on death; her surviving nests remain active. Ordinary Cave Queens are unchanged.
+  Bugfixes:
+    - Existing assault saves retain their wave number, living actors and pending units while old three-minute/one-minute deadlines are shortened on upgrade.
+    - A due Queen that cannot fit is retained across saves with bounded retries and a reserved population slot. Nest batches obey the shared cap, including partial batches near 24.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.92
+Date: 2026-09-23
+  Features:
+    - After the existing two-hour countdown, Advancing Collapse maintains a centred open area 96 tiles wide and 160 tiles deep: three horizontal columns by five rows of chunk-sized space. It advances north one tile row at a time with the collapse.
+    - Automatic clearance reveals floor resources without triggering cave entrances, cavern rooms, discovery enemies or digging rewards. Existing resources, player construction and already-discovered entrances are preserved.
+    - Assault waves now distribute their existing unit budget among Biters, Spitters, Armoured Biters and Arachnids with 40/30/15/15 quotas, rounded per wave. All four families follow the current Evolution tier.
+  Changes:
+    - New assault units, nests and reinforcements spawn in the central 32-tile column. Four scripted nest families rotate across waves and reinforce with their own family.
+    - Clearance processes one 96-tile row per tick and saves its progress. Waves wait for initial preparation; existing wave deadlines, population caps, reward settings and total unit counts are retained.
+  Bugfixes:
+    - Structural Cave Collapse no longer drops rubble into the active cleared area, including already-queued collapses spreading in from outside.
+    - Directly generated team chunks use the existing two-pass sealing guard before clearance. Blocked spawn searches remain inside the centre and use bounded retries.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.91
+Date: 2026-09-22
+  Features:
+    - Advancing Collapse now launches a one-direction assault from the moving southern front after its two-hour countdown. Wave 1 requests 30 evolution-matched Biters/Spitters; later waves add two attackers, plus five per additional connected team player.
+    - A new wave starts every three minutes even when earlier enemies survive. Scripted assault nests begin at two per wave, gain one per ten completed waves up to eight, reinforce once per minute and remain capped at 24 active nests.
+    - Added an Advancing Collapse HUD for wave number, active attackers, active nests and the next fixed wave deadline.
+  Changes:
+    - Attackers are staged in 25-unit-per-second batches on reachable Cave floor ahead of the current collapse line. The normal staging distance is about 30 tiles and expands automatically during catch-up so the collapse cannot consume a new wave before its next deadline.
+    - Active attackers are capped at 300 per surface. They refresh their attack orders every 30 seconds, attack nearby player blockers, and relocate to the current southern front only after five stationary minutes without a nearby blocker.
+    - Assault enemies use the existing Train Wave unit reward settings, current surface Evolution and a 70/30 Biter/Spitter mix. There are no Boss waves or wave-clear rewards.
+  Bugfixes:
+    - Upgrading an already-active Advancing Collapse save retires the stranded indestructible southern guard and schedules the first assault after five seconds.
+    - Disconnecting every relevant player pauses generation without accumulating missed waves; reconnecting resumes with at most one overdue wave.
+    - Team surfaces created after the countdown now begin at the visible collapse front and cannot rebuild the retired southern guard strip.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.90
+Date: 2026-09-22
+  Bugfixes:
+    - Cavern rooms can no longer be generated within 50 tiles of any locomotive or wagon connected to the Train Interiors Main Train.
+    - The safe area follows every connected train part, including long moving trains, and checks the final room footprint before terrain is carved or an extraction-cave entrance is placed.
+    - Cave Collapse and Advancing Collapse behavior is unchanged; this guard is active only while Train Interiors is active.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.89
+Date: 2026-09-22
+  Features:
+    - Added All after 100 on every Sell row. Sells complete deals from the main inventory at Normal quality and leaves the remainder.
+    - Added Storage Tank under Fluids & Barrels: eight filled 25,000-unit tanks in Base and 21 with Space Age, at the approved prices. Plasma is excluded; steam is supplied at 165 C.
+  Changes:
+    - Removed Rocket silo from the Sell list and increased Nuclear fuel's sell price to 200 coins each.
+  Bugfixes:
+    - Sell exchanges and filled-tank purchases roll back completely if inventory space is insufficient. Purchased tanks preserve their fluid amount and temperature through the existing portable-tank system.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.88
+Date: 2026-09-22
+  Changes:
+    - Remove the lengthy solar-panel explanation and normalize the native solar display without changing panel production ratings, recipes, or graphics.
+    - Preserve solar output across Cave lighting modes using native night performance and a separate surface coefficient; retain existing panel entities and original surface lighting.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.87
+Date: 2026-09-22
+  Features:
+    - Added market-only Boiler MK1-MK5 in MK / Power for 200/240/260/280/300 coins each.
+    - Each boiler supplies two matching Steam Engines of the same quality at full output. Normal-quality boilers provide 3.6/5.4/7.2/9/10.8 MW of heat using proportionally more fuel, with 165 C steam and vanilla efficiency.
+  Changes:
+    - Updated Steam Engine MK1-MK5 to the approved 1.8/2.7/3.6/4.5/5.4 MW ratings and corresponding steam consumption. Existing placed engines adopt the new ratings without replacement.
+    - Retained engine prices, vanilla boilers and engines, solar settings, graphics, recipes and unrelated systems.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.86
+Date: 2026-09-22
+  Bugfixes:
+    - Steam Engine MK1-MK5 now consume enough steam to reach their existing 1.1/1.3/1.5/1.7/2 MW ratings when supplied with sufficient steam and electrical demand.
+    - MK5 requires about 66.7 steam per second at 165 C. One normal-quality boiler supplies 60 per second; additional steam supply is required for continuous full output.
+  Locale:
+    - Added English and Russian solar-panel descriptions explaining the low-light Productivity bonus and current versus full-light maximum power, including the Market MK panels.
+    - Solar production, lighting modes, percentages, boiler settings, engine efficiency, prices and recipes are unchanged.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.85
+Date: 2026-09-22
+  Features:
+    - Cave Accumulators of all four sizes retain their exact stored energy and quality when picked up and placed again, including construction robot handling.
+    - Charged accumulators use individual non-stackable items with an energy/percentage tooltip. Empty accumulators retain their original stackable items and recipes.
+  Scripting:
+    - Restore charge only from the actual consumed charged item. Blueprints and script-created entities do not create stored energy.
+    - Preserve charged items on rejected ore-patch placements or capacity changes. Charging, discharging, power limits, capacities and graphics remain unchanged.
+    - Uses mining/build events only, with no additional periodic polling, surface scans or migration of existing entities.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.84
+Date: 2026-09-21
+  Bugfixes:
+    - Restored moving blue charging and yellow discharging effects on the battery columns of the 10x10 and 20x20 Cave Accumulators, using the approved 6x6 animation frames.
+    - Aligned each effect to its battery window, including the exposed parts of columns behind the central body and rear fan decks.
+  Graphics:
+    - Column effects use native accumulator charge/discharge animations. Existing front charge meters, cooling fans, body sprites, shadows and footprints are unchanged.
+    - No recipes, capacities, power limits, research, entity identities or saved energy were changed. No new runtime polling or image atlases were added.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.83
+Date: 2026-09-21
+  Features:
+    - Added the approved 10x10 and 20x20 Cave Accumulators with separate shadows and body sprites contained within their placement footprints.
+    - Added front charge meters that follow each entity's actual stored energy and live buffer capacity, including Quality. The 20x20 model includes all ten animated cooling fans.
+  Changes:
+    - Applied the approved capacity and recipe table: 3x3 50 MJ, 6x6 250 MJ, 10x10 1 GJ, and 20x20 5 GJ. The 10x10 uses advanced circuits; the 20x20 uses processing units.
+    - Preserved the original 3x3 and 6x6 flow limits and crafting times. New 10x10 and 20x20 models use 60 MW and 300 MW input/output and 1500-second and 6000-second base crafting times.
+    - All four recipes unlock with Electric Energy Accumulators. Existing-save migration updates recipe availability per force without replacing entities or changing stored Joules.
+  Scripting:
+    - Charge meters check registered large accumulators every ten ticks and update sprites only when their displayed percentage changes. Cooling frames run in the native renderer.
+    - Handle duplicate builds, cloning, ghost revival, removal, surface deletion, force changes and save/load without resetting other systems.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.82
+Date: 2026-09-21
+  Graphics:
+    - Replaced both shared cave entrance/exit sprites with the approved industrial mine design.
+    - Updated the matching 64x64 icon. Kept 400x289 sprite frames, scale, shift, selection and collision boxes.
+    - Built from the supplied 3.1.81 archive. All Lua files, settings, recipes and migrations are unchanged.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.81
+Date: 2026-09-18
+  Graphics:
+    - Corrected undersized east/west Industrial Loader housings. Their projected body size and position now match the original 3.1.76 sprites: 120x149 source pixels inside the existing 212x170 cells.
+    - Repacked the approved 3.1.80 artwork from its high-resolution source, correcting the vertical fit and lower edge without changing the four-corner design. Applied the same correction to all four tier colours and both input/output states.
+    - Adjusted side-view shadows to the corrected silhouette and retained transparent margins around every cell.
+    - North/south sprites are pixel-identical to 3.1.80. Atlas dimensions, scale, shift, icons and all Lua files are unchanged; no gameplay or save-data changes are included.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.80
+Date: 2026-09-18
+  Industrial Loader Graphics:
+    - Built from the approved 3.1.78 package. Replaced east/west housing sprites with the final locked design derived from rotating the approved front housing, retaining its four separate coloured corner pads, interrupted rails and open mouth.
+    - Added the same locked housing in yellow, red, cyan-blue and lime green for both input and output states. Input/output changes are limited to the arrow panels; all tiers share the same housing silhouette and openings.
+    - Preserved every north/south sprite cell and all icons. Kept the 848x340 atlases, 212x170 cells, sprite scale, shift and 1x1 placement footprint. Packed the new side views with uniform scaling inside the previous side-body bounds and aligned their openings to the belt centre.
+    - Updated side-view shadows to follow the new housing silhouette. The rejected 3.1.79 side design is not used.
+    - All Lua code, speeds, filters, recipes, research, settings, migrations and entity identities are unchanged. The approved wind turbine, accumulators, industrial containers and unrelated systems remain unchanged.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.78
+Date: 2026-09-18
+  Wind Turbine Graphics:
+    - Rebuilt the turbine atlas from detailed source layers at four times the resolution in each dimension, with filtered downsampling and refined metal blade shading.
+    - Changed sprite frames from 300x175 at scale 1 to 1200x700 at scale 0.25. The world-space image size, ground anchor, 3x3 footprint, collision box, selection box and sprite shift are unchanged.
+    - Increased the item/entity icon from 32 to 64 pixels and the technology icon from 128 to 256 pixels, rendered from the detailed source.
+    - Preserved the existing entity identity, 20-frame animation, animation speed, power output, recipes, research and startup setting. No entity replacement or new migration is used.
+    - This build addresses turbine graphics only. The reported Industrial Loader side-view design mismatch remains pending.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.77
+Date: 2026-09-18
+  Graphics:
+    - Replaced Industrial Loader housing sprites and icons in all four tier colours, with all four directions and both input/output arrow states. Existing frame dimensions, scale, shift, belt animation, speeds, filters, recipes and research are unchanged.
+    - Replaced Wind Turbine sprites, rotation and icons with the approved Cave design. Kept the 300x175 frames, 20-frame atlas, animation speed, ground anchor, footprint, research, power output and startup setting.
+  Cave Accumulators:
+    - Added separate craftable 3x3 and 6x6 Cave Accumulators with new body, shadow, charge, discharge and reflection graphics. Native engine storage, charge/discharge behaviour, circuit output and quality support are inherited from the vanilla accumulator.
+    - Normal-quality 3x3: 50 MJ capacity, 3 MW input/output, 100-second recipe using 50 batteries, 10 steel plates, 10 advanced circuits and 20 electronic circuits.
+    - Normal-quality 6x6: 100 MJ capacity, 6 MW input/output, 200-second recipe using 100 batteries, 20 steel plates, 20 advanced circuits and 40 electronic circuits.
+    - Both recipes unlock with existing Electric Energy Accumulators research. A migration unlocks them for each already-researched force independently, without resetting unrelated research or recipes.
+    - Preserved vanilla accumulators, market MK accumulators, industrial containers, Train Interiors, Shelter systems and all unrelated gameplay.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.76
+Date: 2026-09-17
+  Graphics:
+    - Reduced the world-sprite scale for all seven variants of the 1x1, 2x2, 4x4 and 6x6 industrial container families so the complete body fits inside its placement footprint instead of covering adjacent loaders and inserters.
+    - Applied each corrected scale to the matching separate shadow. The original artwork, icons and colour variants are retained.
+    - Preserved collision and selection boxes, inventory capacities, recipes, research, internal prototype names and existing-save migration.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.75
+Date: 2026-09-17
+  Industrial Container Family:
+    - Added the missing 4x4 Industrial Storehouse with Standard, Filtered, Passive Provider, Storage, Requester, Buffer and Active Provider variants, bringing the family to 28 containers across 1x1, 2x2, 4x4 and 6x6 footprints.
+    - Renamed the displayed 6x6 family to Industrial Warehouse while retaining every existing 6x6 internal prototype ID for save compatibility.
+    - Replaced all four sizes with a unified original armoured-container design, dedicated colour variants and separate shadow layers.
+  Capacity and Recipes:
+    - Set startup capacity ranges/defaults to 100-200/200 for 1x1, 400-800/800 for 2x2, 900-1600/1600 for 4x4 and 1800-3000/3000 for 6x6.
+    - Changed the Standard 1x1 Industrial Container recipe to 40 Steel Plates. The new Standard 4x4 recipe uses two Standard 2x2 Industrial Storeboxes plus 80 Steel Plates and crafts in 10 seconds.
+    - Kept the existing Standard 2x2 and 6x6 recipes unchanged. Added proportional circuit upgrades for every Filtered and logistic 4x4 variant.
+  Research and Existing Saves:
+    - Added all 4x4 recipes to the established Industrial Containers, Logistic Containers and native Logistic System research gates. Existing researched forces receive exactly the matching unlocked 4x4 recipes through migration.
+    - Existing placed 1x1, 2x2 and 6x6 entities, inventories and item contents are retained; no vanilla chest prototype is replaced.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.74
+Date: 2026-09-14
+  Independent Startup Options:
+    - Replaced the shared Iron/Copper/Coal Mineral Caves switch with separate Iron Cave, Copper Cave and Coal Cave Enable/Disable settings. All three default to Enabled.
+    - Disabled Mineral resources are removed from new deterministic Force decks while the established 5 Iron / 3 Copper / 2 Coal relative weights remain unchanged among enabled resources. Disabling all three prevents new Mineral Cave entrances.
+    - Added an Underground Village setting, Disabled by default. Only enabling it allows new Underground Village rooms, including the existing 10% roll, ten-room guarantee and 400-tile spacing rules.
+    - Added a Wind Turbine setting, Enabled by default. Disabling it hides the item, recipe and three-stage research chain and sets placed turbines to zero output.
+  Existing Save Safety:
+    - Already discovered Iron, Copper and Coal Caves and Underground Villages remain usable when their new-generation settings are disabled.
+    - Placed Wind Turbines and completed research are retained while disabled; re-enabling restores each Force's researched output and recipe availability.
+  Scope Safety:
+    - Preserved Mineral Cave timers, transfer systems, power bridges, spacing, shared per-Force operation limit, Underground Village missions and all unrelated gameplay systems.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.73
+Date: 2026-09-12
+  Shelter Battery Bridge:
+    - Replaced the short-lived 3.1.72 Shelter output accumulator with the same one-way ElectricEnergyInterface transfer window proven by Train Interiors. The twenty capacities, charge rates, output limits, 25%-100% hysteresis and 15x15 exterior connection range are unchanged.
+    - Fixed the actual 15-tick loss: Shelter runtime no longer destroys and recreates a live hidden power entity when Factorio normalizes its collisionless position to the placement grid. Existing input, output and wire entities are now preserved and repositioned in place exactly like the Train Battery bridge.
+    - Added the same one-time runtime output-buffer sizing repair used by Train Interiors, keeping each exterior reserve equal to one 15-tick transfer window.
+  Existing Save Migration:
+    - 3.1.72 saves settle any genuinely consumed accumulator reserve, recover pending interior charge, remove only The Cave's obsolete hidden Shelter bridge entities and recreate the Train-style bridge automatically.
+  Scope Safety:
+    - Preserved the 36x36 interior Main Substation, Garden connection, Shelter Shield, Wave Defense, room geometry, item/fluid transfers and every Train Interiors file.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.72
+Date: 2026-09-11
+  Shelter Battery Output:
+    - Replaced only the Shelter Battery's exterior ElectricEnergyInterface reserve with a dedicated one-way accumulator buffer. Unused staged energy now remains measurable between 15-tick synchronization passes instead of being mistaken for exterior consumption and immediately removed from the scripted Shelter Battery.
+    - Kept the existing interior charger, twenty Battery capacities and charging rates, exterior output limits, 25%-100% charge hysteresis and 15x15 exterior connection range unchanged.
+    - The new exterior buffer has zero input flow, so exterior generators still cannot charge the Shelter Battery; tertiary output also keeps normal exterior generation ahead of Shelter emergency power and does not charge exterior accumulators.
+  Existing Save Migration:
+    - Existing 3.1.71 Shelter saves discard the unreliable staged output interface without subtracting it from authoritative stored energy, remove any orphaned old output interfaces, and create the new output-only buffer automatically.
+  Scope Safety:
+    - Preserved the 36x36 Shelter Main Substation coverage, Garden power and transfers, Shelter Shield, Wave Defense, room geometry, item/fluid transfer and every Train Interiors file.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.71
+Date: 2026-09-11
+  Shelter Power Distribution:
+    - Restored the fixed Shelter Main Substation to the same 36×36 direct supply coverage and 36-tile wire reach used by the Main Locomotive Substation. The full 36×36 green starting core can now power machines and feed the hidden Shelter Battery charger directly.
+    - Kept the Shelter Battery's isolated one-way behaviour: interior generation charges the scripted battery, exterior generation cannot charge it, and the battery supplies only exterior network shortages within the existing 15×15 Shelter output range.
+    - Kept the lower Shelter Garden connector identical to the Train Garden connector: 36-tile wire reach, a protected 2×2 direct supply footprint, and ordinary player-built pole coverage for Garden machines.
+    - Corrected Garden link verification to recognize both player-origin and script-origin copper wires, so the cross-surface Shelter-to-Garden connection is verified and repaired by the existing 15-tick infrastructure sync.
+  Scope Safety:
+    - Preserved all twenty Battery research stages, charging and output rates, Garden geometry and transfers, Shelter Shield, Wave Defense, room expansion, item/fluid transfer and every Train Interiors file.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.70
+Date: 2026-09-11
+  Shelter Garden Floor:
+    - Added a separate Shelter Garden Floor using the proven three-stage Train Garden sizes: 60×60, 84×84 and 108×108, with the same green core, internal water, Yumako/Jellynut soil progression and ordinary pole-based power.
+    - Added an exact 2×2 automatic portal centred at (0,-12) on the Shelter main floor. The fixed upper INPUT and OUTPUT Store Boxes are centred at (-6,-15) and (5,-15); the lower Store Boxes preserve the Train Garden item directions.
+    - Added one-way item transfer from upper INPUT to Garden INPUT and from Garden OUTPUT to upper OUTPUT. Shelter Garden intentionally has no fluid pipes, fluid endpoints or fluid-transfer code.
+    - Added an independent three-stage Garden Floor research chain with Shelter-specific naming and artwork; Train Interiors and its Garden remain unchanged.
+  Shelter Wave Research:
+    - Shelter Attack Distance 1-8 are now enabled and visible only when both Shelter Defense and Wave Defense are enabled. Turning Wave Defense off hides the complete dead branch without deleting completed research, so progress returns if Wave Defense is enabled again.
+  Scope Safety:
+    - Preserved Shelter interior expansion, Battery, Shield, main item/fluid transfers, Biter Expansion, Wave behaviour, defeat/reset logic and every Train Interiors system.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.69
+Date: 2026-09-11
+  Shelter Interior:
+    - New Shelter Defense expeditions now start with a 40×40 main floor and the same fixed 36×36 green core used by the Train Interiors starting layout. Existing occupied 60×60 level-zero rooms retain their footprint until Shelter Interior Expansion 1.
+    - Moved the fixed 6×6 OUTPUT and INPUT Storehouses to the lower-left and lower-right core corners and placed two matching, initially north-facing underground-pipe ports beside each Storehouse. Exterior ports and all item/fluid transfer algorithms remain unchanged.
+    - The complete current floor and all four ten-tile utility lanes are charted in normal map view. Players inside also receive a fixed-Shelter outside camera with zoom and 200/230/260 size controls.
+  Shelter Battery and Shield:
+    - Expanded Shelter Battery from six to twenty research stages using the exact Train Battery capacities, research costs and science packs. Capacity now reaches 250,000 MJ, interior charging reaches 1,000 MW and exterior output remains capped at 600 MW from level 6 onward.
+    - Added ten Shelter Shield stages matching Train Shield progression: 5,000 base HP, up to 35,000 HP, and 5–50 HP/sec automatic repair beginning ten seconds after the last enemy hit. Research preserves current health percentage; manual and robot repair remain disabled.
+    - Added separate original Shelter Battery and Shelter Shield technology artwork and updated English/Russian descriptions and status displays.
+  Scope Safety:
+    - Preserved Biter Expansion, Wave Defense, Shelter Attack Distance, expansion levels 1–8, the 15×15 exterior power range, transfers, defeat/reset behavior and unrelated systems.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.68
+Date: 2026-09-10
+  Retired Imported Early-Machine Set:
+    - Permanently removed the unused imported early-machine set, including all three items, entities, recipes, data-stage definitions, final-fixes compatibility code, Starter Pack entries, English/Russian locale entries, icons, animations, shadows, lights and glow graphics.
+    - No replacement items, recipes, settings, hidden compatibility prototypes or migration aliases were added. The removed content is no longer present anywhere in the mod package.
+  Scope Safety:
+    - Preserved every remaining Starter Pack item and quantity. Shelter Defense, Train Interiors, cave generation, enemies, research, power, rewards, settings and every unrelated system remain unchanged from 3.1.67.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.67
+Date: 2026-09-10
+  Original Shelter Exterior Artwork:
+    - Replaced the former shelter-k2 exterior building artwork with a new original armored cave-bunker design created specifically for The Cave.
+    - Added matching original high-resolution and standard-resolution world sprites, separate shadow and warning-light layers, a 64x64 inventory/shortcut icon and a 256x256 Shelter Attack Distance technology icon.
+    - Removed the unused former Shelter reflection and remnant artwork from the package. The existing GPL-3.0 open/close sounds and their licence notice remain unchanged.
+  Scope Safety:
+    - Kept the Shelter's 6x6 placement footprint, collision and selection boxes, health, inventory, placement rules, interior geometry, entry/exit, power, transfers, research, Wave Defense and every runtime algorithm unchanged from 3.1.66.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.66
+Date: 2026-09-10
+  Reward Safety:
+    - With Train Interiors active, Locomotives, Cargo Wagons, Fluid Wagons and Artillery Wagons are excluded from every The Cave reward selector without affecting discoverable world trains or player-owned rolling stock.
+    - Existing unopened 3.1.65 Fortified Vault caches are deterministically rebuilt with the new reward policy when the save upgrades.
+  Fortified Underground Vault:
+    - Reduced every curated belt bundle from 500 belts, 100 underground belts and 50 splitters to 100, 20 and 10 respectively without changing its selection algorithm or tier mapping.
+    - Every mixed stronghold now guarantees ten Small TNT Boxes across its blue caches, ten Medium TNT Boxes across its yellow caches and ten Large TNT Boxes across its red caches when those item prototypes are available.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.65
+Date: 2026-09-09
+  Biter Expansion Objective:
+    - Removed the visible red 200-tile Train/Shelter boundary while preserving its invisible objective aggro and nest-exclusion logic.
+  Hoard Rooms:
+    - Hoard Rooms now contain exactly 14 Steel Chests. Every chest makes exactly eight independent random reward picks and every basic pick quantity is doubled.
+    - Doubled every guaranteed room-wide Hoard bundle without changing the room geometry, enemies or occurrence rules.
+  Arachnid Queen:
+    - Raised Queen health to 100,000 in Easy/Medium, 150,000 in Hard and 200,000 in Nightmare. The 30-second regeneration delay and 0.5% maximum-health-per-second rate are unchanged.
+  Fortified Underground Vault:
+    - Replaced 120 single-colour strongholds with 40 mixed strongholds. Each group contains 18 blue, 12 yellow and 6 red caches.
+    - Each Medium/Hard/Nightmare group now has 40/50/60 mobile defenders, 3/5/7 spawners, 3/4/5 worms, 3/4/6 Gun Turrets and 2/3/5 Laser Turrets.
+    - Removed cache unlock timers. The first click spawns 3/4/5 tracked mobile defenders for blue/yellow/red; after those defenders die, a second click claims the reward. Cache alarms no longer create an extra turret.
+    - Replaced research-gated global loot caps with prototype-gated curated rewards and independent per-stronghold guarantees. Unresearched rewards remain eligible.
+    - Every mixed group guarantees 100 level-1 modules, 50 level-2 modules, 30 level-3 modules, one Modular Armor, one Power Armor, one Power Armor MK2, 50 Gun Turrets, 1,000 Firearm Magazines, 20 Laser Turrets, one Nuclear Reactor and 300 Uranium Rounds Magazines.
+    - Added large tiered belt bundles and valuable nuclear, combat, production, vehicle and equipment rewards. Turbo rewards appear only when their prototypes exist.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.64
+Date: 2026-09-09
+  Independent Enemy Systems:
+    - Wave Defense and Biter Expansion now obey their own Startup settings independently. Enabling both runs both systems together; Wave timing, routes, counts, bosses and rewards remain unchanged.
+    - Replaced the unfiltered native Cave expansion dispatch with explicit real settler groups. Wave units, active Arachnid Queens and enemies already committed to an objective are never recruited, no extra enemies are spawned, and failed migration groups are safely disbanded.
+  Train and Shelter Objective Aggro:
+    - With Biter Expansion enabled, the live Main Locomotive or fixed Cave Shelter now has a force-local 200-tile attack radius. Ordinary mobile enemies that enter it permanently abandon migration or nest founding and attack that objective.
+    - New Biter Expansion nest destinations inside the objective radius are rejected; expansion remains free to found nests outside it.
+    - Added a permanently visible red, unfilled 400-tile-diameter boundary with a 6-pixel outline. It follows the Main Locomotive continuously, stays fixed on the Shelter and does not depend on ALT mode.
+    - Wave Defense units and the active Arachnid Queen are excluded from the new objective controller. Existing Train and Shelter destruction/reset behaviour is unchanged.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.62
+Date: 2026-09-06
+  Shortcut Bar:
+    - Added a Gun Turret shortcut using Factorio's existing Gun Turret icon. Clicking it directly runs the same nearby 20x20 reload used by Ctrl+R without changing Inserter controls, ammunition selection or reload limits.
+    - Added a corpse-cleaner shortcut using Factorio's existing Behemoth Biter icon. Clicking it runs the same per-player nearby cleanup used by Backspace and preserves permanent player corpses, live enemies, items and buildings.
+    - Kept Ctrl+R and Backspace available and linked both shortcut tooltips to their existing configurable key bindings.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.61
+Date: 2026-09-06
+  Teleporter Access:
+    - Added a Teleporter button to Factorio's shortcut bar using the existing Teleporter artwork.
+    - Added Ctrl+T to open or close the same existing Teleporter waypoint window for each player.
+    - Removed the former 80x80 Teleporter button below Cave Information, including cleanup for upgraded saves.
+    - Kept all Teleporter research, destination slots, costs, cooldowns and saved waypoint data unchanged.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.60
+Date: 2026-09-06
+  TNT Box Progression:
+    - Replaced the shared TNT Box research with a three-stage chain. Small follows Military Science Pack and costs 100 Automation, Logistic and Military packs; Medium follows Small and costs 300 of each; Large follows Medium and costs 600 of each.
+    - Each research unlocks only its matching TNT Box and all three technologies reuse the same existing 256x256 research icon without duplicate graphics.
+    - Moved all three TNT Box items from Logistics to a dedicated Combat row immediately below the turret row, ordered Small, Medium and Large.
+    - All three recipes now require 30 base crafting seconds and use Advanced Crafting, preventing player handcrafting while allowing Assembling Machines.
+  Graphics:
+    - Kept the angled TNT Box artwork and added a stronger contact and lower-right cast shadow to all three world sprites.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.59
+Date: 2026-09-06
+  TNT Boxes:
+    - Added one TNT Box research after Explosives. Its base cost is 100 Automation, Logistic and Military science packs at 30 seconds per unit; The Cave's Research Level Difficulty scales it normally.
+    - The research unlocks Small, Medium and Large 2x2 TNT Boxes. Recipes use one Iron Chest plus 15, 30 or 60 Explosives, craft in one second and stack to five.
+    - Player-placed boxes show a ten-second world countdown and detonate automatically. Mining a box before zero safely recovers it; placing it again starts a new ten-second timer.
+    - Circular blast diameters are 20, 30 and 40 tiles. Blasts remove only diggy-rock and diggy-rubble, give no direct mining items, preserve resources and run The Cave's normal Dig outcomes for enemies, rooms and special caves.
+    - TNT explosions deal no scripted damage to players, enemies, buildings or resource entities. The boxes themselves are indestructible, non-military targets and cannot be blueprinted or deconstructed by construction robots.
+    - A maximum of five TNT Boxes may be active globally. A sixth player placement is cancelled and the same-quality item is returned, or safely spilled beside the player if the inventory is full.
+    - Added a Startup TNT Boxes Enable/Disable option, enabled by default. The complete feature is unavailable whenever Cave Collapse or Advancing Collapse is enabled.
+  Graphics:
+    - Added distinct yellow, orange and red 2x2 world sprites, separate shadows and 64x64 inventory icons with one, two and three visible dynamite bundles.
+    - Added a dedicated transparent 256x256 TNT Box research icon.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.58
+Date: 2026-09-05
+  Portable Filled Storage Tanks:
+    - Mining a non-empty vanilla Storage Tank now creates a tagged portable tank that preserves the exact fluid type, amount, temperature, original capacity and entity quality.
+    - Filled portable tanks have stack size 1 and fixed 50 kg weight, limiting a one-ton rocket to 20 tanks. Empty vanilla Storage Tanks remain unchanged at their normal 50-tank rocket capacity.
+    - Player, construction-robot and Space Platform mining and placement are supported. Placement restores a real vanilla tank and its contents; failures return the tagged item to the player, robot or platform hub.
+    - Only the vanilla Storage Tank is portable. The Cave's 1x1, 2x2, 3x4, 5x5 and hidden Train fluid-transfer tanks remain unchanged.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.57
+Date: 2026-09-02
+  Arachnid Queen Boundaries:
+    - Added a fixed 200-tile Queen exclusion radius around the original game start. Queens cannot spawn, select destinations, travel, excavate or place nests inside it.
+    - With Train Interiors enabled, the exclusion radius is anchored once to the first starter train placement and never follows the moving train.
+  Arachnid Queen Nest Cap:
+    - Each Queen now counts Biter, Spitter, Snapper and Arachnid spawners in her own depth zone and pauses movement, excavation and nesting at 25 total nests.
+    - A final batch creates only the remaining capacity, so 22, 23 and 24 nests become exactly 25 without overshooting. Destroying nests below the cap lets the Queen resume; regeneration remains active while paused.
+    - Ordinary Nest Rooms, direct-dig settlers, Worm maturation and the Cave expansion adapter remain unchanged and are not restricted by the Queen-only cap.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.56
+Date: 2026-09-02
+  Arachnid Queen Excavation:
+    - When no opened room has space for all three nests, an active Queen now selects a safe Cave-frontier rock in her own depth zone and excavates until a suitable room becomes available.
+    - Queen strikes deal double damage only to diggy-rock and diggy-rubble cover. Player characters, buildings, other enemies and ordinary combat damage are unchanged.
+    - A frontier rock directly destroyed by a registered Queen now resolves the same deterministic terrain, tunnel, room, resource, special-cave, threat and direct-dig systems as a player-mined rock, without granting inventory mining yield.
+    - Queen levels 1-3 no longer apply their legacy area-damage pulse while clearing an obstacle, preventing one strike from resolving several adjacent frontier rocks.
+  Startup Control:
+    - Added an Arachnid Queen Startup option, Enabled by default. Disabled prevents Queen spawning and removes existing Queens while preserving every ordinary three-spawner Nest Room and unrelated enemy system.
+  Scope Safety:
+    - The one-living-Queen-per-depth-zone cap, 30-second regeneration delay, five-minute nesting rest, exactly three weighted nests and all non-Queen enemy behaviour remain unchanged.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.55
+Date: 2026-09-02
+  Arachnid Queen Position Fix:
+    - Fixed a non-recoverable distance calculation error when a dedicated Arachnid room supplied its centre in array-form MapPosition coordinates.
+    - Existing Queens affected by 3.1.54 now repair their saved current-site position from their live entity position before selecting a destination.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.54
+Date: 2026-09-02
+  Arachnid Queen Movement:
+    - All successfully opened cavern rooms are now recorded as Queen destinations, including Nauvis rooms that were previously omitted and left Easy-zone Queens stationary.
+    - Queen regeneration now begins after 30 seconds without damage instead of 60 seconds; the 0.5% maximum health per second rate is unchanged.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.53
+Date: 2026-09-02
+  Arachnid Queen Fix:
+    - Fixed a non-recoverable on_tick error caused by reading Queen maximum health from LuaEntityPrototype instead of LuaEntity.
+    - Applied the same API correction to legacy Queen tier migration while preserving health percentage.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.52
+Date: 2026-09-02
+  Direct-Dig Enemy Ecology:
+    - Kept the existing 3-4 ordinary-dig interval and changed its outcome to five equal 20% families: Biter, Spitter, Snapper, Arachnid or evolution-matched Worm.
+    - When Allow Biter Expansion is active, surviving Biter, Spitter, Snapper and Arachnid ambushers retain normal combat distractions while travelling to found one same-family nest on valid opened Cave floor.
+    - With Allow Biter Expansion active, direct-dig Worms attack normally and, if still alive after one minute, transform into one nest with Biter 20%, Spitter 20%, Snapper 30% and Arachnid 30% weights. Ordinary room Worms are unaffected.
+  Family Nest Expansion:
+    - Cave migrations now preserve the nearest source nest family for Biter, Spitter, Snapper and Arachnid nests while retaining native settler movement, group size, cadence, distance, placement and player-building avoidance.
+    - Snapper and Arachnid nests remain script-placed only and receive no autoplace.
+  Arachnid Queen:
+    - The first eligible ordinary or Arachnid Nest Room can release one living Queen per Easy, Medium, Hard and Nightmare zone on each main Cave surface.
+    - A dead Queen can be replaced only by the next eligible Nest Room in her original zone; Queen-laid nests never create Queens.
+    - Queens are passive and non-retaliating. They travel to another valid opened room, lay exactly three independently weighted nests (20% Biter, 20% Spitter, 30% Snapper, 30% Arachnid), wait five minutes and repeat.
+    - Queen health remains 10,000 in Easy/Medium, 15,000 in Hard and 20,000 in Nightmare.
+    - After 60 seconds without damage, Queens regenerate 0.5% maximum health per second; new damage stops regeneration and restarts the delay.
+  Save Migration:
+    - Existing Arachnid bosses are adopted as Queens, legacy levels 4-10 are reduced to the correct zone tier, and duplicate same-zone bosses are consolidated to the one-Queen cap.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.51
+Date: 2026-09-01
+  Arachnid Boss Balance:
+    - Arachnid Nest rooms now use fixed bosses: level 1 in Easy and Medium, level 2 in Hard and level 3 in Nightmare.
+    - Boss health is now 10,000 for level 1, 15,000 for level 2 and 20,000 for level 3.
+  Scope:
+    - No Market, room frequency, spawner, direct-dig ambush or unrelated gameplay behaviour changed from 3.1.50.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.50
+Date: 2026-09-01
+  Integrated Arachnids:
+    - Bundled the MIT-licensed Arachnids_enemy 1.2.0 units, spawner, bosses, graphics and sounds directly into The Cave.
+    - Added dedicated Arachnid Nest rooms from depth 100 with three Arachnid spawners and one deterministic zone-scaled boss.
+    - Arachnid bosses are level 1 in Easy, 2-3 in Medium, 4-7 in Hard and 8-10 in Nightmare depth zones.
+    - Dedicated Arachnid rooms contain no vanilla, Armoured or regional enemies and cannot be selected back-to-back with another combat room.
+    - Direct digging now completes an ambush interval every 3-4 ordinary digs and equally selects a Biter, Spitter or evolution-matched Arachnid family.
+  Compatibility:
+    - Added explicit conflicts with the standalone Arachnids_enemy, ArachnidsFaction and Arachnids mods to prevent duplicate prototypes.
+    - Preserved existing peaceful depth, room-open suppression, local active-enemy caps and timed-cave pack behaviour.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.49
+Date: 2026-08-30
+  Changes:
+    - Train Interiors and Shelter Defense now enter or leave on the first Ctrl+Enter press.
+    - Removed the remaining second-press confirmation state and updated the related English and Russian prompts.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.47
+Date: 2026-08-30
+  Changes:
+    - Industrial Loaders now have one independent item filter for each belt lane.
+    - Bulk Inserter costs 100 Automation and Logistic science packs; Inserter Capacity Bonus levels 1-7 cost 250 each, with 30-second research time.
+    - Stack Inserter and all 18 Transport Belt Capacity levels cost 300 Automation, Logistic and Chemical science packs, with 60-second research time.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.46
+Date: 2026-08-27
+  Changes:
+    - Entering and leaving Train Interiors now needs one Ctrl+Enter press.
+    - Train Battery charging speed now rises from 50 MW to 1000 MW over 20 levels.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.45
+Date: 2026-08-27
+  Changes:
+    - Entering Train Interiors now needs one Ctrl+Enter press.
+    - Main Train Expansion now has 20 research levels.
+    - Train Battery Upgrade now has 20 research levels and more capacity.
+    - Construction robots no longer try to repair Train Interiors rolling stock.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.44
+Date: 2026-08-25
+  Startup Attack-Mode Load Fix:
+    - Fixed the non-recoverable error raised by 3.1.43 during on_configuration_changed.
+    - The Wave Defense Startup gate is now captured from game_settings during initial control.lua parsing instead of calling require from a runtime event.
+    - Kept the stable 3.1.31 Wave controller within Lua's 200-local limit without adding any runtime module loading.
+  Scope:
+    - No Wave, Boss, queue, tunnel, Biter Expansion, pollution, balance or Startup-setting behaviour changed from 3.1.43.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.43
+Date: 2026-08-25
+  Separate Enemy Attack Modes:
+    - Added Startup options Allow Wave Defense and Allow Biter Expansion.
+    - Wave Defense is Enabled by default and Biter Expansion is Disabled by default.
+    - Exactly one system may run: enabling both activates neither and displays a clear conflict warning; disabling both leaves Train Interiors or Shelter Defense active without either attack system.
+  Stable Wave Defense Rollback:
+    - Restored the complete Train/Shelter Wave controller and Wave-unit prototypes from the player-confirmed stable 3.1.31 implementation.
+    - Removed the 3.1.40-3.1.42 Unit Group interception, AI overrides, Boss detachment migration and global on_unit_added_to_group hook.
+    - Wave timing, queues, tunnels, Bosses, military diversion, blocker recovery, rewards and balance now follow the stable 3.1.31 controller.
+  Preserved Biter Expansion:
+    - Kept the current dense zero-spacing placement, Evolution-scaled 10-to-2-minute cadence, native migration, target scoring and settler rules unchanged when Allow Biter Expansion is selected.
+    - Its 0.1 pollution attack cost and one-percent spawner absorption now apply only in Biter Expansion mode, preventing those global modifiers from leaking into Wave Defense.
+    - The former runtime Map switch remains hidden only for save compatibility; the new Startup selector is authoritative.
+  Scope:
+    - Preserved current interior pollution venting, Train/Shelter power fixes, item/fluid transfer, Cave generation and every unrelated 3.1.42 system.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.42
+Date: 2026-08-25
+  Boss Unit Group Detachment:
+    - Replaced the previous command-only Boss recovery with real Unit Group detachment.
+    - A recruited Boss is moved alone through a temporary script group which is immediately destroyed, unlinking the Boss without killing or modifying any native nest units.
+    - The exact tunnel, blocker, Main Locomotive or Shelter command is restored only after the Boss is no longer a member of the native group.
+  Existing Save Recovery:
+    - Increased the Wave AI isolation migration version so a Boss already stranded beside a nest in a 3.1.41 save is detached and resumed in place on the first normal update.
+  Scope:
+    - Kept native enemy groups, nest units, pollution, Wave balance, Boss health, damage, timing, tunnels and blocker recovery unchanged.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.41
+Date: 2026-08-25
+  Boss Wave Group Isolation:
+    - Added a dedicated once-per-second Boss guard that detects both real native-group membership and a replaced Factorio group command.
+    - A diverted Boss now immediately receives its exact current tunnel, obstacle, Main Locomotive or Shelter command again instead of gathering beside a Cave nest.
+    - Increased the Wave AI isolation migration version so a Boss already active in an existing 3.1.40 save is recovered in place on the first normal update.
+  Scope:
+    - Kept Boss health, damage, obstacle attacks, two-minute blocker recovery, Wave counts, queues, tunnels and timing unchanged.
+    - Native nest units, pollution attacks, enemy expansion and ordinary Wave attackers remain unchanged from 3.1.40.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.40
+Date: 2026-08-25
+  Train Wave Attacker Isolation:
+    - Prevented scheduled Train and Shelter Wave Biters, Spitters and Bosses from joining native enemy attack groups created by nearby spawners.
+    - Wave attackers can no longer abandon their scripted tunnel, player, military-target or Main Locomotive/Shelter route to gather beside a Cave nest or return to a spawner.
+    - Kept every Wave attacker on the normal enemy Force, preserving turret hostility, combat rewards, Evolution tiers, military diversion and compatible enemy interactions.
+  Existing Save Recovery:
+    - Existing registered Wave attackers are isolated in place and receive their correct current command again without being killed, teleported or counted as a new spawn.
+    - An event-driven guard immediately restores any Wave attacker that another system attempts to add to a native unit group; no map-wide or per-tick enemy scan was added.
+    - Existing active counts, queued attackers, Boss progress, tunnels, Wave timers and the current save remain intact.
+  Scope:
+    - Native nest Biters, Spitters, expansion groups, pollution attacks, nest density, Wave population, active-enemy caps and every unrelated system remain unchanged from 3.1.39.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.39
+Date: 2026-08-25
+  Minimal Enemy-Spawner Pollution Absorption:
+    - Reduced the direct industrial-pollution absorption rate of every loaded unit-spawner prototype to one percent of its existing value.
+    - Vanilla Biter, Spitter and integrated Armoured Biter spawners therefore change from absolute 20 / proportional 0.01 to absolute 0.2 / proportional 0.0001.
+    - Compatible modded spawners with their own pollution absorption retain their relative balance and are scaled by the same one-percent multiplier instead of relying on a hard-coded name list.
+  Attacks and Pollution Spread:
+    - Kept the enemy attack pollution consumption modifier at 0.1. Pollution-triggered attackers remain ten times cheaper than vanilla while each nest removes pollution from its chunk one hundred times more slowly.
+    - Dense zero-spacing nest clusters can still collect real pollution and launch native Factorio attacks, but should no longer act as an immediate pollution wall before the cloud can reach nests farther along opened Cave routes.
+    - Absorption remains finite rather than being disabled. Spores and every non-industrial airborne pollutant retain their loaded prototype values.
+  Existing Saves and Scope:
+    - Existing saves adopt the prototype change automatically after loading this version; pollution already absorbed by nests cannot be restored.
+    - Five-times Train/Garden/Shelter venting, exterior pollution already left behind, tile/tree/void absorption, diffusion, Evolution, zero-spacing Enemy Expansion and every unrelated system remain unchanged from 3.1.38.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.38
+Date: 2026-08-25
+  Minimum Pollution Attack Cost:
+    - Reduced Factorio's enemy attack pollution consumption modifier from 0.5 to 0.1, the minimum supported value.
+    - A pollution-triggered enemy now costs one tenth of the normal pollution amount, allowing the same real pollution to fund approximately ten times the normal number of attackers before ordinary group timing and population limits are applied.
+    - Dense front-line nests need only one fifth of the pollution required in 3.1.37 to fund equivalent attack groups, giving substantially more of the cloud a chance to continue toward deeper nests.
+  Existing Saves and Scope:
+    - New games receive the 0.1 attack-cost modifier during initialization. Existing saves adopt it automatically when loading this version.
+    - Pollution production, five-times interior venting, diffusion, tile/tree/void absorption, zero-spacing Enemy Expansion and every unrelated system remain unchanged from 3.1.37.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.37
+Date: 2026-08-25
+  Lower Pollution Attack Cost:
+    - Set Factorio's enemy attack pollution consumption modifier from 1.0 to 0.5.
+    - Each pollution-triggered enemy now needs half the previous pollution to join an attack group, so the same real pollution can fund approximately twice as many attackers before ordinary group timing and population limits are applied.
+    - Dense front-line nests require less total absorbed pollution to fund their attacks, giving the remaining cloud more opportunity to continue toward nests deeper inside opened Cave routes.
+  Existing Saves:
+    - New games receive the 0.5 attack-cost modifier during initialization. Existing saves adopt it automatically when loading this version.
+  Preserved Pollution and Enemy Behaviour:
+    - Five-times Train/Garden/Shelter pollution venting, diffusion, the 15-pollution spread threshold, tile/tree/void absorption, Evolution and exterior machine pollution remain unchanged.
+    - Dense zero-spacing Enemy Expansion, its 10-to-2-minute cadence, maximum reach, settler group size, native migration and every unrelated enemy system remain unchanged from 3.1.36.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.36
+Date: 2026-08-25
+  Dense Enemy Expansion:
+    - Removed the three-chunk minimum spacing from Cave enemy expansion. On Factorio versions that expose min_expansion_distance, The Cave now keeps it at zero while its Enemy Expansion setting is enabled.
+    - Removed all existing-enemy-base influence from The Cave's expansion target score. Open chunks beside an existing nest and chunks already containing nests remain eligible for further expansion.
+    - Expansion can now densify opened Cave floor until normal entity collision leaves no valid location for another spawner. Existing nests are not moved, deleted or regenerated.
+  Preserved Expansion Rules:
+    - Player-building influence, maximum expansion reach, Evolution-scaled 10-to-2-minute cadence, settler group size and Factorio's native migration/base construction remain unchanged.
+    - Natural cavern generation, Gleba nest generation, Direct-dig enemies, pollution, Wave Defense and every unrelated system remain unchanged from 3.1.35.
+  Existing Saves and Testing:
+    - Existing saves adopt the zero-spacing rule automatically after loading this version. /the-cave-expansion-test 100 can still be used to test the established two-minute maximum-Evolution cadence.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.35
+Date: 2026-08-25
+  Five-Times Interior Pollution Venting:
+    - Train Interiors, the Locomotive Garden and Shelter Defense now vent exactly five times the real pollution collected from their factory-capable interior surfaces.
+    - One unit collected inside therefore adds five units at the current exterior Main Locomotive or fixed Shelter position. An idle interior still adds zero pollution; no fixed or time-based source was introduced.
+    - Efficiency Modules and machine activity continue to determine the real source amount before the 5x multiplier is applied.
+  Minimal Cave-Void Absorption:
+    - Reduced the industrial-pollution absorption of Factorio's out-of-map tile to 0.000001 per tile per second, exactly one percent of its vanilla value.
+    - A completely void-filled 32x32 chunk now absorbs only 0.06144 pollution per minute instead of 6.144. The leak remains finite rather than being disabled entirely.
+    - Existing saves adopt the prototype change automatically. Already absorbed pollution is not recreated; newly produced pollution persists and spreads under the reduced void loss after loading this version.
+  Preserved Pollution Behaviour:
+    - Normal floor and tree absorption, enemy-spawner consumption, diffusion, map pollution settings and ordinary exterior machine emissions remain unchanged.
+    - Only the standard pollution entry on out-of-map is changed. Spores and other airborne pollutants retain their loaded values.
+    - Pollution emitted at previous train positions is never cleared, moved or reassigned by The Cave.
+  Testing:
+    - /the-cave-pollution-test reports the real amount collected inside, the 5x amount vented outside and the active multiplier separately.
+  Scope Safety:
+    - Interior power, Train and Shelter batteries, item/fluid transfer, Wave Defense, enemy AI and every unrelated system remain unchanged from 3.1.34.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.34
+Date: 2026-08-25
+  Triple Interior Pollution Venting:
+    - Train Interiors, the Locomotive Garden and Shelter Defense now vent exactly three times the real pollution collected from their factory-capable interior surfaces.
+    - One unit collected inside therefore adds three units at the current exterior Main Locomotive or fixed Shelter position. An idle interior still adds zero pollution; no fixed or time-based source was introduced.
+    - Efficiency Modules and machine activity continue to determine the real source amount before the 3x multiplier is applied.
+  Exterior Behaviour:
+    - Pollution emitted at previous train positions is never cleared, moved or reassigned. New emissions follow the train and add to any pollution still present when it revisits an area.
+    - Factorio remains responsible for normal exterior diffusion, terrain and tree absorption, spawner consumption and enemy attacks. Ordinary exterior miners, assemblers and other pollution sources are unchanged.
+  Testing:
+    - Updated /the-cave-pollution-test to report the real amount collected inside, the 3x amount vented outside and the active multiplier separately.
+  Scope Safety:
+    - Interior power, Train and Shelter batteries, item/fluid transfer, Wave Defense, enemy AI, map pollution settings and every unrelated system remain unchanged from 3.1.33.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.33
+Date: 2026-08-25
+  Train Garden Power Distribution:
+    - Removed the accidental surface-wide global electric network from the Locomotive Garden. Garden machines now require normal electric-pole coverage instead of receiving power through the floor.
+    - Replaced only the lower Garden fixture with a dedicated wire-connector Substation. Its 36-tile copper-wire reach is retained, but its direct supply area is limited to its own protected 2x2 footprint.
+    - Kept the existing native scripted copper connection from the Main Locomotive Substation to the lower Garden connector. The Main Locomotive Substation keeps its established 36x36 coverage unchanged.
+  Shelter Defense Power Distribution:
+    - Reduced the fixed Shelter Main Substation direct supply area from 36x36 to its own protected 2x2 footprint, so normal Shelter machines require player-built electric poles.
+    - Kept the hidden one-way Shelter Battery charger beneath the fixed connector, its 36-tile wire reach, battery capacities, charge/discharge rates and exterior emergency output unchanged.
+    - Shelter interior surfaces now defensively remove a global electric network if an old, editor-modified or externally modified save enabled one.
+  Existing Save Migration:
+    - Existing Garden global networks are removed automatically when the mod configuration updates.
+    - Existing lower Garden Substations are replaced in place while preserving their live copper-wire neighbours; the cross-surface power link is then verified and repaired by the existing 15-tick infrastructure sync.
+  Scope Safety:
+    - Train Battery isolation, Shelter Battery isolation, exterior accumulators, generators, pollution venting, item/fluid transfer, room geometry, Wave Defense and every unrelated power bridge remain unchanged.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.32
+Date: 2026-08-25
+  Real Interior Pollution Venting:
+    - Train Interiors and Shelter Defense now collect the real pollution present on their factory-capable interior surfaces every three seconds and vent exactly that amount onto the live exterior surface.
+    - No fixed pollution source, minimum, multiplier, exponential growth or artificial time-based pollution was added. Efficiency Modules, machine activity and power usage therefore continue to control the resulting pollution naturally.
+    - Scripted venting uses Factorio pollution rather than a separate attack counter, so the exterior cloud retains its normal diffusion, absorption, Evolution and native enemy-attack behaviour.
+  Moving Train Pollution Trail:
+    - A Train Interior vents at the Main Locomotive's current exterior position. Pollution already emitted at an earlier stop or along the route is never cleared, moved or reassigned when the train moves.
+    - Each new position receives only newly produced interior pollution. Returning to a previously polluted area adds to the pollution still present there after Factorio's normal diffusion and absorption.
+    - Coupled wagons sharing one interior surface are counted once per cycle. The Locomotive Garden vents separately through the same live Main Locomotive.
+  Shelter Defense:
+    - Shelter interior pollution vents at the fixed exterior Shelter position and remains there under Factorio's normal pollution simulation.
+  Existing Saves and Testing:
+    - Historical pollution trapped inside before this feature existed is cleared once during migration and is not dumped outside as a sudden backlog. Only pollution produced after upgrading is transferred.
+    - Added /the-cave-pollution-test to report the latest Train, Train Garden and Shelter transfer amount, exterior position and transfer status.
+  Scope Safety:
+    - Exterior pollution is never cleared by this system. Wave Defense, enemy AI, map pollution settings, machine emissions, power bridges, item/fluid transfer and Resource Cave/Lost City/Fortified Vault surfaces remain unchanged.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.31
+Date: 2026-08-24
+  Quality-Aware Cross-Surface Item Transfer:
+    - Train Interiors Cargo Wagon import/export now tracks each item name and Quality separately and transfers Normal, Uncommon, Rare, Epic and Legendary stacks without changing their Quality.
+    - Shelter Defense exterior/interior import/export now uses the same Quality-aware counting, removal, insertion and safe remainder rollback.
+    - Existing version-1 transfer snapshots preserve their established Normal-item baselines while retrying only non-Normal stacks already stuck in a Cargo Wagon, Shelter exterior inventory or interior Export Storehouse.
+  Audited Transfer Paths:
+    - Locomotive Garden already moves complete LuaItemStack objects, preserving Quality and stack metadata.
+    - Uranium/Mineral Resource Caves and Lost City already use Factorio linked belts, preserving item Quality natively; their transfer code is unchanged.
+  Scope Safety:
+    - Fluid transfer, power bridges, train/shelter layouts, Storehouse roles, transfer direction, Wave Defense, Cave balance and every unrelated gameplay system remain unchanged.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.30
+Date: 2026-08-24
+  Faster Enemy Expansion:
+    - Replaced the standard 60-to-4-minute Cave expansion cadence with a linear 10-to-2-minute interval: 10 minutes at 0% Evolution, 8 at 25%, 6 at 50%, 4 at 75% and 2 at 100%.
+    - Each interval remains one migration attempt rather than a guaranteed nest. Existing enemy spawners, eligible opened Cave floor, Factorio's influence scoring and a successful settler migration are still required.
+    - Existing saves discard only their previously scheduled long Expansion timestamp once during migration, then begin a fresh interval at their current Evolution. Pending settler migrations and all other Expansion state are preserved.
+  Admin Testing:
+    - Added /the-cave-expansion-test <0-100|status>. Setting a percentage updates Evolution on every main Cave surface and starts a fresh interval at that level; status reports Evolution, live enemy-spawner count, remaining time and whether expansion is enabled.
+  Scope Safety:
+    - Expansion distance, settler group size, target scoring, native migration/base construction, Direct-dig enemies, cavern rooms, Train/Shelter Wave Defense and every unrelated gameplay system remain unchanged.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.29
+Date: 2026-08-24
+  Boss Blocker Combat:
+    - Increased every Train/Shelter Wave Boss strike from the copied Behemoth value to 200 physical damage while retaining the established attack speed, movement speed, health scaling and resistances.
+    - After deployment, a Boss now attacks only player-force entities whose collision boxes actually block its current tunnel waypoint or direct route to the Main Locomotive/Shelter. Natural Cave cover, belts, rails and unrelated nearby structures are not selected.
+    - One continuous 120-second obstruction window covers an entire layered barrier. Damaging, destroying or switching between individual wall layers does not restart the timer; it clears only after the Boss has moved eight tiles beyond the last blocker.
+  Boss Recovery:
+    - A Boss that remains obstructed for 120 seconds is removed without a death, corpse, loot, coins or kill credit and the same logical Boss is queued through a different directional tunnel with its remaining health preserved.
+    - A Boss removed by another mod without an entity-death event is recovered through the same queue instead of leaving the Boss Wave permanently stuck at Unknown.
+    - Only a real Boss death advances the Boss counter and starts the established 15-minute post-Boss break.
+  Shared Scope:
+    - The same implementation is used by both Train Interiors Wave Defense and Shelter Defense; their separate final targets and every unrelated Wave rule remain unchanged.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.28
+Date: 2026-08-23
+  Composable Startup Modes:
+    - Removed the single-choice Game Mode dropdown and restored the established independent Startup settings for Cave Collapses, Train Interiors, Shelter Defense, CAVETORIO and Advancing Collapse at the top of Startup settings.
+    - Restored Digging Mode as one dropdown with Disabled, Hardcore and Levels 1–4 instead of five separate Game Mode entries.
+    - Compatible features can once again be combined, including Train Interiors with Cave Collapses, Advancing Collapse and any Digging Mode level.
+    - Normal The Cave remains the baseline when the optional scenario settings are Disabled.
+  Compatibility:
+    - Train Interiors and Shelter Defense remain mutually exclusive. If both are Enabled, neither interior scenario starts and the established conflict warning is shown.
+    - CAVETORIO retains its established requirements: CAVETORIO, Train Interiors and Everything on Nauvis Enabled, with Shelter Defense Disabled.
+  Scope Safety:
+    - Resource Cave balance, loot, enemies, Evolution, Train/Shelter interiors, power systems, wave rules and every unrelated gameplay system remain unchanged from 3.1.27.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.27
+Date: 2026-08-23
+  Timed Resource Cave Enemy Pressure:
+    - Removed the ten-room generation ceiling from active Iron, Copper, Coal and Uranium Caves. New rooms may continue to open until the timed cave closes.
+    - Resource Cave interiors remain limited to Empty Rooms and Enemy Nest Rooms. Eligible rolls use a 40/60 Empty/Nest weighting, never permit consecutive Nest Rooms and guarantee a Nest after at most two Empty Rooms.
+    - Each Nest Room retains exactly three spawners plus its existing zone-scaled worms. At most 12 enemy spawners may remain alive on one Resource Cave surface; new rooms stay empty until enough spawners have been destroyed to fit another complete Nest Room.
+    - Direct player mining between rooms now creates a bounded difficulty-scaled group: 2–3 on Easy, 3–5 on Medium, 5–8 on Hard and 8–12 on Nightmare. The established nearby active-unit caps still prevent accumulated combat spikes.
+  Evolution:
+    - Destroying an enemy unit-spawner in one of the four Resource Caves through a player or player-owned force now applies Factorio's live spawner-destruction factor to that cave's parent surface Evolution.
+    - Worms and mobile units do not add this Evolution, and scripted cave closure, cleanup, migration or surface deletion cannot award it.
+    - The parent value continues to synchronize to its owned child missions. Main-surface enemies, Lost City ambushes, Fortified Vault enemies and Wave Defense tiers can therefore reflect the higher Evolution naturally; their timing, population, routing and AI logic are unchanged.
+  Scope Safety:
+    - Main-surface Direct-dig events remain single-enemy events. Lost City generation, Fortified Vault generation, Train Interiors, Shelter systems, Wave Defense rules, enemy identity and Damage Indicator logic remain unchanged.
+    - No Resource Cave nest is regenerated behind cleared players. Replacement Nest Rooms can appear only ahead in newly opened rooms, and no separate lower-cave expansion system was added.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.26
+Date: 2026-08-23
+  Industrial Logistic Progression:
+    - Fixed Logistic Containers incorrectly unlocking every industrial logistic chest at the early 250-pack research tier.
+    - Logistic Containers now unlocks only Passive Provider and Storage variants for the Industrial Container, Industrial Storebox and Industrial Storehouse.
+    - Requester, Buffer and Active Provider variants for all three sizes now unlock with Factorio's native Logistic System technology.
+    - The advanced variants therefore follow the active game mode automatically: Utility science in the base game and Space science in Space Age.
+  Existing Saves:
+    - Added a targeted migration for the nine advanced industrial logistic recipes. They remain enabled only for forces that have researched Logistic System; no unrelated recipe or technology state is reset.
+  Scope Safety:
+    - Container capacities, ingredients, entities, inventories, filtering, basic and dedicated Filtered variants, and every unrelated system remain unchanged.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.25
+Date: 2026-08-23
+  Chest Filtering:
+    - Added a Chest Filtering Startup dropdown with Enable and Disable choices. Enable is the default so existing saves retain the established filtering behaviour automatically.
+    - Enable gives every compatible normal and logistic chest Factorio's native cargo-wagon-style slot filters, matching the previous unconditional behaviour.
+    - Disable skips only The Cave's global chest conversion. Ordinary chests keep their original inventory behaviour, while the dedicated Filtered Industrial Container, Filtered Industrial Storebox and Filtered Industrial Storehouse remain filterable.
+    - The existing compatibility blacklist remains unchanged. Changing this Startup setting requires a restart; disabling it on an established save can remove ordinary-chest slot-filter assignments.
+  Scope Safety:
+    - The implementation does not change chest capacities, contents, recipes, technologies, graphics, entity names, dedicated Filtered prototypes or unrelated systems.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.24
+Date: 2026-08-23
+  Wave Defense Panel:
+    - Fixed the +/- panel button in Shelter Defense by routing Wave UI clicks before the Train Interiors-only GUI guard.
+    - New and existing Wave Defense panels now start in a compact one-row state and can be expanded or collapsed independently by each player.
+    - Removed the expanded panel's forced dimensions while it is collapsed, reducing its closed footprint to the natural header size.
+    - Shelter Defense now uses Shelter-specific panel titles, compact headers, paused text and tooltip; Train Interiors retains its established Train Wave wording.
+  Scope Safety:
+    - Wave timing, scaling, enemies, tunnels, rewards, Train Interiors, Shelter mechanics and every unrelated system remain unchanged.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.23
+Date: 2026-08-22
+  Everything Has Quality Integration:
+    - Added one Startup base-quality percentage setting with a 0–100 range and a default of 0.
+    - Zero is a strict no-op. Values from 1 to 100 apply base quality to assembling machines, furnaces and mining drills.
+    - When enabled, Uncommon quality is unlocked for every force and negative module quality effects are clamped to zero.
+    - The official Quality mod is optional; the integrated feature safely remains inactive when Quality is unavailable.
+  Compatibility:
+    - Declared the standalone quality-everything mod incompatible to prevent duplicate prototype changes.
+    - Integrated behaviour is based on Everything has Quality 0.0.3 by LuckyLMJ.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.22
+Date: 2026-08-22
+  Starter Train Interior Order:
+    - Kept the initial orientation lock active until the complete three-part Main Train is actually observed, including couplings completed after the initial spawn event.
+    - The starter interior is fixed left-to-right as Fluid Wagon, Cargo Wagon, Locomotive, matching the established right-to-left view: Locomotive, Cargo Wagon, Fluid Wagon.
+    - The lock closes permanently after that first complete set. Battery, power, fixtures, room geometry, later coupling, discovered train parts and unrelated systems are unchanged.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.20
+Date: 2026-08-22
+  Startup Game Mode:
+    - Removed the fresh-game Main Lobby and restored direct startup through Settings > Mod Settings > Startup.
+    - Added one first-position Game Mode dropdown with Normal The Cave, Cave Collapses, Train Interiors, Shelter Defense, CAVETORIO, Advancing Collapse and five direct Digging variants.
+    - Removed the separate scenario Enable/Disable prototypes and translated the new choice centrally to the established legacy setting interface.
+  Protected Systems:
+    - Train Interiors, Train Wave Defense, Shelter Defense, rolling-stock order, power systems and interior runtime files remain byte-for-byte identical to 3.1.15.
+    - Cave Information and Teleporter retain their original 3.1.15 top-left placement without any screen-position code.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.15
+Date: 2026-08-21
+  Thirty-Minute Fortified Raid:
+    - Increased the shared Fortified Vault timer from 20 to 30 minutes.
+    - The existing duration migration updates active Vaults to a total of 30 minutes measured from their original first-entry tick; it does not restart the raid timer.
+    - Updated the outside Display Panel, mission information and all English/Russian Fortified entrance descriptions to state the new 30-minute duration.
+  Scope Safety:
+    - Unlimited cache openings, reward budgets, blacklist and progression filters, the 70x70 safe-zone rendering, the 10-tile enemy spawn buffer, all 120 groups and unrelated Cave systems remain unchanged.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.14
+Date: 2026-08-21
+  Unlimited Fortified Cache Openings:
+    - Removed both successful-opening limits from Fortified Vaults. Players no longer have a personal cache cap, and the raid no longer stops after a shared number of opened caches.
+    - Any player may keep hacking as many of the physically generated caches as time and combat permit. Personal and raid-wide opened counts remain as information only.
+    - The established Fortified reward blacklist, research and region gates, combined science ceiling, item quantity budgets, armor/equipment budgets and final-payout validation remain unchanged.
+  Twenty-Minute Raid:
+    - Increased the shared Fortified Vault timer from 15 to 20 minutes.
+    - Existing active records migrate to a 20-minute close time measured from their original first-entry tick; the migration is idempotent and does not restart the raid.
+    - Updated English and Russian entrance descriptions, mission information, Vault panel, entry message and cache-success message to remove every obsolete opening-limit claim.
+  Scope Safety:
+    - The 70x70 rendered safe zone, 10-tile defender spawn buffer, 120 full-size groups, 1,440 physical caches, 40,000 rocks, alarms, hack durations and unrelated Cave systems remain unchanged.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.13
+Date: 2026-08-21
+  Fortified Vault Safe-Zone Test:
+    - Expanded the newly generated lower-Vault combat-safe square from 50x50 to 70x70 while preserving the existing 700x700 floor, exact arrival pad and all 120 full-size stronghold groups.
+    - Added a further 10-tile static-enemy spawn buffer outside the visible boundary. Stronghold centres shift outward and unsafe defender targets are relocated rather than intentionally reducing defender totals.
+    - Added a thin green 70x70 owner-Force-only rendering outline and localized label. It is visual only: no wall, collision, enemy damage, enemy deletion, AI override or recurring area scan is introduced.
+    - Existing active Vault layouts are not rewritten. Generate a new Fortified Vault to test the expanded boundary and shifted initial defender placement.
+  Scope Safety:
+    - Cache rewards, blacklists, research and region gates, quantity budgets, rocks, hack limits, raid timer and unrelated Cave systems remain unchanged.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.12
+Date: 2026-08-21
+  Fortified Stronghold Density:
+    - Increased newly generated Fortified Vault strongholds from 30 to 120: 40 Standard, 40 Secure and 40 High-Security groups.
+    - Preserved the complete old group template instead of dividing it: cache counts and every Medium/Hard/Nightmare defender family scale fourfold with the four-times-larger 700x700 floor.
+    - New Vaults contain 720 Standard, 480 Secure and 240 High-Security caches. The 10-per-player and 20-per-Vault successful-open limits remain unchanged.
+  Dynamic Four-Category Rewards:
+    - Replaced the narrow fixed tier pools with runtime discovery from the Logistics, Production, Intermediate Products and Combat item groups. Recipe-backed items require their recipe to be researched; physical Market-only items without recipes, including The Cave MK/Toolbelt equipment, remain eligible.
+    - Selection balances the four groups before choosing individual items, so Intermediate Products cannot crowd the other categories out.
+    - Added deterministic per-stronghold diversity rerolls: adjacent caches cannot reuse an identical loadout when another eligible combination exists, and the preferred overlap ceiling is 50 percent.
+    - Expanded conservative quantity handling for portable equipment, turrets, combat robots, mines, artillery and dynamically discovered mod items while retaining every agreed per-Vault hard cap.
+  Reward Safety and Progression:
+    - The complete Fortified blacklist, whole Items > Space exclusion, combined 400 science-pack ceiling, one-armor/four-equipment ceilings and final-payout checks remain mandatory.
+    - Every recipe-backed candidate still requires an enabled Force recipe. Explicit item mapping plus technology-graph inference limits planetary recipes to the matching Cave coordinate region.
+    - Existing unopened caches are rebuilt deterministically through the dynamic catalog on configuration change. Existing active Vault geometry and defenders are not duplicated; spawn a new Vault to test all 120 groups.
+  Scope Safety:
+    - Lost Village, other cave types, recipes, technologies, enemies outside Fortified Vaults, Train systems, Shelter systems and unrelated gameplay remain unchanged.
+---------------------------------------------------------------------------------------------------
+Version: 3.1.11
+Date: 2026-08-21
+  Fortified Vault Scale and Access:
+    - Expanded every newly generated Fortified Vault from 350x350 to 700x700 while preserving the exact 50x50 central combat-safe square and the small clear arrival pad.
+    - Increased natural Vault rocks from 10,000 to 40,000 to preserve the previous floor density across the four-times-larger area.
+    - Increased the successful cache limit from 6 to 10 per player and from 15 to 20 for the entire Vault. The existing first-completed, first-served behavior remains unchanged.
+    - Cache totals, 30 stronghold groups, group composition, raid timer, alarms and Medium/Hard/Nightmare defender counts remain unchanged.
+  Fortified Reward Safety:
+    - Added a Fortified-only hard blacklist for every requested science pack, endgame material, fuel, weapon, armor, equipment and building. The entire runtime Items > Space item group is also denied automatically, including items added to that group by other mods.
+    - Blacklisted items are rejected at pool selection, cache insertion, existing-cache migration and final payout. The items remain fully available everywhere outside Fortified Vault rewards.
+    - Rewards now require an actually enabled owner-Force recipe. Planet-discovery auto-research alone cannot leak locked recipes, and mapped planetary rewards are limited to their matching Cave coordinate region.
+    - Replaced repeated 18/24/30 picks and quantity multipliers with one deterministic bundle per selected item type. Jackpot bundles obey the same blacklist, research, region, tier and quantity rules.
+  Shared Reward Budgets:
+    - Added the agreed per-Vault hard ceilings for materials, circuits, belts, underground belts, splitters, robots, machines, ammunition, modules, armor and equipment across every cache and every player.
+    - Whitelisted science packs share one combined 400-pack ceiling per Vault. When several types compete for the remaining science budget, it is divided evenly and unused shares are redistributed.
+    - A Vault can award at most one armor item and four wearable equipment items in total. Armor, equipment, tier-3 modules, nuclear reactors and railgun ammunition are High-Security-only.
+  Existing Saves and Scope Safety:
+    - Existing active Vault records receive the new reward budgets and every still-unopened cache is deterministically rebuilt through the new filters on configuration change.
+    - Already generated 350x350 child surfaces keep their existing geometry until that short-lived raid closes; the next generated Vault uses 700x700 and 40,000 rocks.
+    - Lost Village, other cave types, recipes, technologies, enemies, Train systems, Shelter systems and unrelated gameplay remain unchanged.

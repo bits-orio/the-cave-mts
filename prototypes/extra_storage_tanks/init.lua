@@ -1,0 +1,5 @@
+require("prototypes.extra_storage_tanks.entities.storage_tank_1x1")
+require("prototypes.extra_storage_tanks.entities.storage_tank_2x2")
+require("prototypes.extra_storage_tanks.entities.storage_tank_3x4")
+require("prototypes.extra_storage_tanks.entities.storage_tank_5x5")
+require("prototypes.extra_storage_tanks.technology")

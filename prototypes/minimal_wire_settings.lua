@@ -1,0 +1,37 @@
+data:extend({
+  {
+    type = "string-setting",
+    setting_type = "startup",
+    name = "the-cave-minimal-wire",
+    default_value = "enabled",
+    allowed_values = { "enabled", "disabled" },
+    order = "a-b-3-4",
+  },
+  {
+    type = "int-setting",
+    setting_type = "runtime-global",
+    name = "the-cave-minimal-wire-radius",
+    default_value = 42,
+    minimum_value = 1,
+    maximum_value = 1000,
+    order = "z-the-cave-minimal-wire-a",
+  },
+  {
+    type = "int-setting",
+    setting_type = "runtime-global",
+    name = "the-cave-minimal-wire-max-poles",
+    default_value = 30,
+    minimum_value = 2,
+    maximum_value = 1000,
+    order = "z-the-cave-minimal-wire-b",
+  },
+  {
+    type = "int-setting",
+    setting_type = "runtime-global",
+    name = "the-cave-minimal-wire-operations-per-tick",
+    default_value = 10,
+    minimum_value = 1,
+    maximum_value = 1000,
+    order = "z-the-cave-minimal-wire-c",
+  },
+})

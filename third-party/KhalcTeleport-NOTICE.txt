@@ -1,0 +1,15 @@
+Khalc Teleport attribution
+==========================
+
+The integrated waypoint Teleporter is adapted from "Khalc Teleport" 1.0.3
+by Khalcifer:
+
+https://mods.factorio.com/mod/KhalcTeleport
+
+The upstream project is licensed under the MIT License. The Cave 3.0.20
+integrates and modifies its runtime interface and waypoint logic for The Cave's
+shared event dispatcher, multiplayer surfaces, fixed costs, four-point limit,
+persistent cooldown and English/Russian locale system. Khalcifer does not
+endorse or support The Cave.
+
+The full MIT License is included beside this notice as KhalcTeleport-MIT.txt.

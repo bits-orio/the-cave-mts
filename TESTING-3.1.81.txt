@@ -1,0 +1,44 @@
+The Cave 3.1.81 - Industrial Loader east/west size correction
+
+Scope
+This build corrects the size and position of the approved left/right loader
+artwork. The original stable 3.1.76 sprites were used as the sizing reference.
+The 3.1.80 packer had fitted the artwork by its width, reducing the body height
+to about 110 pixels and leaving its lower edge too high over the belt.
+
+The corrected body is 120x149 source pixels in both side directions. Its
+position matches the original sprite, with body bounds (25,6)-(145,155) for
+the east slot and (26,6)-(146,155) for the west slot. These are projected
+graphic dimensions, not changes to the entity's 1x1 placement footprint.
+The PNG atlases remain 848x340, with 212x170 cells, scale 0.25 and the original
+shift. The approved four-corner design, metal rails, colours and arrows remain.
+The lower side-view rails now extend to the original sprite's lower edge.
+
+Files changed from 3.1.80
+  graphics/entity/industrial-loaders/loader.png
+  graphics/entity/industrial-loaders/fast-loader.png
+  graphics/entity/industrial-loaders/express-loader.png
+  graphics/entity/industrial-loaders/neo-loader.png
+  info.json
+  changelog.txt
+Added: TESTING-3.1.81.txt
+
+Verification performed
+- All 16 east/west cells match the original housing bounds and origin.
+- All 16 north/south cells are pixel-identical to 3.1.80 and 3.1.78.
+- All colours and both flow states share the same side-view silhouette.
+- Both belt openings remain transparent; no body or shadow touches a frame edge.
+- Every Lua file, setting, recipe, speed, filter and entity identity is unchanged.
+- Loader prototype equality checked in a Lua harness with three tiers and
+  with the optional fourth tier; sprite references checked against the PNGs.
+- ZIP CRC and all packaged file bytes checked against the working copy.
+
+In-game test still required
+Factorio was not run in this environment. Enable 3.1.81 and test the loaders
+in the same setup shown in your screenshots. Inspect both side directions,
+especially the lower rim over the belt. Check yellow, red and blue loaders,
+and the green tier when available with Space Age, in both input/output modes.
+Rotate through all four directions to compare the unchanged north/south views.
+Check that items still load and unload with the original belt speeds.
+
+Earlier TESTING files describe their own versions. This file describes 3.1.81.

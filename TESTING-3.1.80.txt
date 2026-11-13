@@ -1,0 +1,61 @@
+The Cave 3.1.80 - locked Industrial Loader side-view design
+Date: 2026-09-18
+
+Baseline
+Built directly from the verified 3.1.78 ZIP with the approved wind turbine.
+No files or artwork from the rejected 3.1.79 side-view design are included.
+
+Changes
+- The left/right housing uses the final user-approved preview derived from
+  the front housing: exactly four separate painted corner pads, interrupted
+  rails, the original panel arrangement and an open sideways mouth.
+- Yellow, red, cyan-blue and lime-green variants are present. Generated paint
+  variants are applied through masks on the locked source, preserving its
+  silhouette, opening and neutral body pixels outside the painted areas.
+- Both input and output states use identical bodies; only the arrow-panel
+  pixels differ between states. No new vents, feet or corner blocks are added.
+- Side-view shadows follow the actual new silhouette.
+
+Preserved
+- All 16 north/south sprite cells remain pixel-identical to 3.1.78.
+- Icons, all Lua code, speeds, recipes, filters, research, settings,
+  migrations, runtime logic and existing-save entity identities are unchanged.
+- 848x340 RGBA atlases, 212x170 frames, scale 0.25 and shift
+  (0.15625,0.0703125) remain unchanged. No prototype file is edited.
+- The 1x1 footprint and collision/selection boxes are unchanged. The new
+  side housing is uniformly scaled without stretching, fits within the old
+  opaque side-body bounds, and stays within the placement square. Its open
+  tunnel is aligned to the existing belt centre. Shadows may extend past the
+  placement square, like the existing north/south shadows.
+- Approved wind turbine, accumulators, chests and other systems unchanged.
+
+Exact changed files relative to 3.1.78
+graphics/entity/industrial-loaders/loader.png
+graphics/entity/industrial-loaders/fast-loader.png
+graphics/entity/industrial-loaders/express-loader.png
+graphics/entity/industrial-loaders/neo-loader.png
+info.json
+changelog.txt
+Added: TESTING-3.1.80.txt
+
+Checks outside Factorio
+- Baseline ZIP SHA-256 and CRC verified; all extracted files matched it.
+- All four final PNGs decoded and matched to actual exported Lua sprite
+  references. All frames fit their atlas; no frame-edge clipping.
+- 16 replaced side cells, 16 unchanged north/south cells, identical side
+  silhouettes across all tiers and both flow states verified.
+- Locked body pixels retained outside paint and arrow masks. Uniform scaling,
+  placement bounds and tunnel centre checked; all packed sprites inspected.
+- Loader prototype executed with three and four belt tiers; all prototype
+  values exactly matched 3.1.78. All 318 Lua files remain byte-identical.
+- Every mod file compared with baseline; changes restricted to the list above.
+- ZIP CRC verified and every archived file matched the working copy.
+
+In-game test still required
+Factorio has not been run for this build in this environment. Load a copy of
+an existing save and inspect already-placed left/right loaders next to belts
+and chests, in both input and output modes. Check the four separate corners,
+arrow direction, mouth alignment, belt visibility and item movement at normal
+and close zoom. Rotate a newly placed loader through all four directions.
+Confirm that north/south looks unchanged and no housing covers neighbouring
+entities. Repeat for every available colour, including green with turbo belts.

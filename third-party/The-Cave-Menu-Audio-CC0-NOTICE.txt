@@ -1,0 +1,24 @@
+The Cave main-menu audio notice
+================================
+
+The file sounds/the-cave-main-menu-stone-mining.ogg is an original edit,
+arrangement and mix made for The Cave from the following CC0 recordings:
+
+1. "Garden pickaxe hitting rock"
+   Creator: Sadiquecat
+   Source: https://freesound.org/people/Sadiquecat/sounds/855629/
+   License: Creative Commons Zero (CC0)
+
+2. "Pickaxe1"
+   Creator: NoisyRedFox
+   Source: https://freesound.org/people/NoisyRedFox/sounds/760565/
+   License: Creative Commons Zero (CC0)
+
+3. "Pick axe striking rocks #1.m4a"
+   Creator: guyburns
+   Source: https://freesound.org/people/guyburns/sounds/558414/
+   License: Creative Commons Zero (CC0)
+
+The source recordings were trimmed, filtered, layered, arranged and mixed into
+the 80-second Stonebreaker menu loop. No attribution is required by CC0; this
+notice is included to preserve source provenance.

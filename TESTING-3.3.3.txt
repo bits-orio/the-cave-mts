@@ -1,0 +1,121 @@
+The Cave 3.3.3 - limited regression-tested patch
+Date: 2026-10-31
+Source: the supplied MAIN the-cave_3.3.2.zip
+Source SHA256: 374386ff505777b05abbed02c0c975708f7bd548252680477660c06110e77bb7
+
+Scope
+-----
+This release addresses three reproduced defects only:
+1. Collapse support caches can retain a removed force after a native force merge.
+2. Partial Store Box and legacy belt transfers can replenish ammunition or
+   durability when the old implementation manually adjusts a source stack.
+3. Uranium and Mineral information panels exceed the native 500-character limit
+   and lose their final warnings.
+
+Runtime changes (exactly five Lua files)
+---------------------------------------
+control.lua: invalidate the mirror and collapse caches before force-merge
+lifecycle cleanup.
+scripts/collapse.lua: also invalidate the same-tick reach cache in wipe_cache.
+These are derived, module-local caches. No persistent job, countdown, render
+object or surface is removed. This does not assume native merges union research.
+
+scripts/cave_item_boxes.lua: use native transfer_from_stack for each existing
+inventory slot and legacy transport-line stack; retain direction, slot order,
+blocked-transfer behavior and existing migration routing.
+
+scripts/uranium_caves.lua and scripts/mineral_caves.lua: shorten only their
+information-text builders. Keep the existing per-record duration calculations,
+resource/Bob branches, final-five-minute access and death/sealing warnings.
+Existing configuration-change handling refreshes valid panels in place.
+
+Other changed files: info.json (version only), README.md, changelog.txt.
+New file: this report. No existing file was removed.
+Settings/defaults, balance, prototypes, research, resources/rewards, assets,
+locales and historical migrations are unchanged. The No Space Age edition is
+unchanged. Old TESTING documents describe their original releases.
+
+Executed checks on this candidate
+--------------------------------
+Native engines: official Factorio headless 2.1.23 (build 87750) and 2.1.24
+(build 87808). Base means DLC disabled for this MAIN mod. Full Space Age means
+all bundled DLC enabled. Fixtures run on isolated copies, never the release.
+
+All-file review:
+- All 378 Lua files compiled using Lua 5.2.4; local imports resolved.
+- Every original file was compared by hash. All 720 graphics/audio assets are
+  byte-identical; previously decoded assets were not redundantly decoded.
+- Independent scope review confirmed the panel modules only change text
+  builders and no unrelated gameplay implementation was changed.
+- Original 3.3.2 source/archive and both existing No Space Age trees unchanged.
+
+Collapse, native 2.1.23, Base and full Space Age:
+- Exact old production-event reproduction crashes 3.3.2 (engine exit 1) in both
+  profiles; the same event completes under 3.3.3 (exit 0).
+- 7/7 focused native groups per profile pass: source/destination ownership and
+  research, stale support, three queued jobs/deadlines/render IDs, unrelated
+  force/surface isolation, fresh-cache consistency and same-tick invalidation.
+- Actual disk save/reload: 2/2 groups per profile pass, preserving queued work
+  and recomputing support after reload.
+
+Store Boxes, native 2.1.23:
+- 3.3.3 passes 15/15 Base and 57/57 full Space Age focused groups.
+- The same fixtures reproduce 8 Base and 40 full Space Age failures in 3.3.2.
+- Covers both cave directions, local legacy buffers and real stacked belts;
+  partial ammo and repair-pack durability; all five qualities where available;
+  full/blocked retry, inventory bars/filters and slot order; blueprints, tagged
+  items, equipped armor and ten valid spoilage cases.
+- Native API experiments confirm transport-line stacks support partial transfer.
+- Actual disk save/reload passes 4/4 groups in each profile.
+
+Information panels, native 2.1.23, Base and full Space Age:
+- 3.3.2 reproduces 12 exact-text truncation failures per profile.
+- 3.3.3 passes 15/15 focused groups per profile. Tests cover iron/copper/coal,
+  new 60-minute and saved 30-minute durations, uranium branches and fallback.
+- Native stored text equals the complete expected string. Maximum tested length
+  is 445/500 characters for Uranium and 402/500 for Mineral.
+- Real 3.3.2 server disk-save -> 3.3.3 upgrade passes 2/2 groups per profile:
+  panel/entrance/input/output/pole unit numbers, stored 37 iron plates, timer
+  start and absolute legacy deadline survive; complete text refreshes.
+- Separate broader panel audit passes 8/8 cases per profile, including Train
+  and Fortified panels and explicit timer/access/death/sealing assertions.
+- Independent pure-function review passes 14 duration/resource/branch variants.
+
+Broader regressions, native 2.1.23:
+- Core fixture suite passes 50/50 Base and 53/53 full Space Age behavior groups,
+  plus seven prototype and one startup-setting check per profile.
+- Core actual same-version disk save/reload passes 4/4 Base and 6/6 full Space
+  Age groups. These are not claims of a whole-world version migration test.
+
+Startup/mode matrix:
+- 24/24 cases, 244 native assertion groups, 86,400 simulated ticks.
+- 20 cases on 2.1.23: nine modes each in Base/full Space Age (core, train,
+  shelter, collapse, collapse+train, advancing+train, valid CAVETORIO+train,
+  caves disabled, train/shelter conflict), plus full Space Age core/collapse
+  with Everything On Nauvis disabled.
+- Four cases on 2.1.24: core/collapse in Base/full Space Age.
+- Test copies' Lua hashes match the release candidate. No new engine warnings
+  or fatal errors. Existing Gleba collision-mask warnings remain below.
+
+Limits and known unchanged issues
+--------------------------------
+These results support this small patch; they do not guarantee all possible
+game states. No graphical client rendering, connected-client multiplayer or
+long-duration live campaign was tested. Some player actions use documented
+fixture wrappers; native forces/entities/inventories/save files are real.
+Bob conditional panel wording used an explicit API double, not a full Bob mod
+integration run. Third-party mod combinations outside the fixtures are untested.
+
+Previously reported issues outside these three fixes remain unchanged:
+- Resetting the owning team on shared original Nauvis can reset the other team's
+  world-level collapse/evolution state.
+- The small Gleba-spawner custom reward callback uses the wrong prototype name.
+- Other stale tooltip/locale/help strings were not revised in this patch.
+- The prior Gleba collision-mask warning still occurs with full Space Age and
+  Everything On Nauvis; it is not a newly introduced warning.
+
+The separate QA archive contains fixtures, commands, before/after results,
+manifests and logs, including the final packaged-ZIP smoke-test result. Do not
+install that QA archive as a mod. This release archive contains no QA hooks.
+Keep a copy of your current save before upgrading and use matching mod versions
+on server and clients.

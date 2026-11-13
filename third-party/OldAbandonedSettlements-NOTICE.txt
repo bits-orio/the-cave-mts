@@ -1,0 +1,15 @@
+Old Abandoned Settlements attribution
+=====================================
+
+The Lost City building artwork, building prototype foundations, and settlement
+layout templates are adapted from "Old Abandoned Settlements" by SacredAnarchy:
+
+https://mods.factorio.com/mod/OldAbandonedSettlements
+
+The assets are bundled in The Cave with explicit permission from SacredAnarchy,
+as confirmed by The Cave project owner. The imported prototypes and templates
+were renamed, isolated to Lost City surfaces, and modified for scripted mission
+use. SacredAnarchy does not endorse or support The Cave.
+
+The original Independent Project Licence is included beside this notice as
+OldAbandonedSettlements-LICENCE.txt.

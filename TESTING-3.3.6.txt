@@ -1,0 +1,109 @@
+THE CAVE 3.3.6 — COIN MAKER TEST BUILD
+2026-11-02
+
+BASELINE AND SCOPE
+Built only from the supplied main-edition the-cave_3.3.5.zip, SHA-256:
+f0bd2d3df4364a1dd1271564bac6c12df9cc4962a170c27da981b4df63eecc59
+The original archive was preserved. No Advancing Collapse or MTS changes are
+included. The four fixes delivered in 3.3.5 remain in this version.
+
+PLAYER USE
+Research Coin Maker after Automation 2. Base cost: 500 red and 500 green science,
+60 seconds per research unit; the existing research-difficulty setting still
+scales research cost. Build it using 50 steel plates, 200 iron gears, 50 green
+circuits and one assembling machine 2. Supply electricity and saleable goods
+using inserters. Extract coins from its output using another inserter.
+No recipe selection is needed or available. Each complete normal-quality batch
+is sold independently, at the current Market Sell price. The listed input goods
+are alternatives, not a requirement to supply all of them. Incomplete batches
+stay inside. The machine rotates through available goods to avoid starvation.
+Normal-quality base rate is one transaction every two seconds. Building quality
+and accepted modules use native speed bonuses. There are always four module slots.
+
+POWER AND MODULES
+500 kW constant drain + 1.5 MW active component = 2 MW total without modules.
+Only speed and efficiency module categories are allowed, including beacon
+transmission. Productivity and quality modules do not contribute, even in a
+mixed beacon. Fixed drain is not modified. Native bonuses, beacon transmission,
+module quality and efficiency limits come from the engine, not copied constants.
+
+FILES CHANGED FROM 3.3.5
+- info.json: version only, now 3.3.6.
+- changelog.txt: new release entry.
+- data.lua: load Coin Maker prototypes.
+- data-final-fixes.lua: load Coin Maker final restrictions.
+- control.lua: register init/configuration/build/clone/platform/timed handlers.
+- scripts/market_coin.lua: require the unchanged shared sale-price table.
+
+FILES ADDED
+- shared/market_sell_offers.lua: existing 25 sale definitions, unchanged.
+- prototypes/coin_maker.lua: machine, item, fixed internal recipe, build recipe,
+  research, native sprite tint and coin icon.
+- prototypes/coin_maker_final_fixes.lua: resolve available sale items and retain
+  restrictions after the optional Everything Has Quality pass.
+- scripts/coin_maker.lua: independent transactions, work/energy accounting,
+  round-robin selection, registration, status and progress.
+- locale/en/coin-maker.cfg and locale/ru/coin-maker.cfg.
+- TESTING-3.3.6.txt.
+
+EXECUTED TESTS
+Official Factorio 2.1.24, build 87808, Linux Headless.
+1. Space Age + Quality: 89 assertions passed.
+2. Base-only, with Space Age, Quality, Elevated Rails and Recycler disabled:
+   83 assertions passed.
+3. Extra edge-case scenario with base-quality setting explicitly verified at
+   100%: 13 assertions passed.
+4. Actual server save/test-load preserved a half-finished transaction, its
+   input and another force's inventory. It resumed once, producing exactly
+   20 coins; subsequent updates did not duplicate the payment.
+5. Actual 3.3.5 save loaded into 3.3.6: existing storage/research retained,
+   Market offers unchanged, new research initially locked, normal research
+   completion unlocked the construction recipe.
+6. The existing native regression suite for the 3.3.5 underground/quickbar/
+   blueprint and Mech armor fixes passed (989 assertions, including repeated
+   inventory-slot checks).
+7. All 387 Lua files passed Lua 5.4 syntax loading. Exact changed-file diff,
+   original baseline hash, metadata and ZIP paths were checked.
+
+COVERAGE DETAILS
+- All 24 available Market sale offers matched exactly. The shared catalogue
+  has 25 definitions; absent optional prototypes are filtered out.
+- All available sale inputs at once produced their expected total of 834 coins.
+- Mixed native inserter input of 250 stone, 100 coal and 70 iron plates produced
+  60 coins in the output chest; 50 stone and 70 plates remained in the machine.
+- No sale before its work finished, visible progress, no native extra crafting.
+- Full output, insufficient room for a whole payment, clearing output, blackout
+  and restoration; goods were not lost or sold without full payment.
+- Fixed recipe rejected unrelated recipes; unrelated input and higher-quality
+  input were rejected; red/Quality modules were rejected by machine slots.
+- Native speed and efficiency effects; mixed blue/red and blue/Quality beacon
+  filtering; green beacons; four slots at all five standard building qualities.
+- Measured buffer consumption over ten-second windows: idle 500 kW, working
+  2 MW, four normal efficiency-1 modules working 800 kW, idle with those modules
+  still 500 kW, four normal speed-1 modules working 5 MW.
+- A test-only very fast permitted module confirmed that multiple sales can
+  finish inside one six-tick update without a one-sale-per-update speed cap.
+- Duplicate build events, cloning, native mining returning inputs/coins/modules,
+  deconstruction pause, circuit enable/disable with a connected wire, force
+  reset/merge, invalid entities and surface deletion.
+- Maximum base-quality setting did not grant Coin Maker quality output or
+  remove the original assembler's quality behaviour.
+
+IMPLEMENTATION AND LIMITS
+Only registered Coin Makers are visited every six ticks. There is no recurring
+full-surface scan. A prototype-filtered discovery occurs on init/configuration.
+Inputs stay in native inventories until a completed transaction. No hidden
+storage entity or item escrow is used; save state holds work progress only.
+The fixed internal recipe provides native filtered inventories and is disabled
+for native crafting so it cannot consume all goods together. Sales use a custom
+status and progress display. Consequently, native crafting animation and native
+'read working'/'recipe finished' circuit signals do not represent the scripted
+sales. Circuit enable/disable was tested; other circuit integrations are not
+claimed as fully tested.
+Headless cannot visually inspect the gold tint, icon rendering, research-tree
+layout or GUI. These remain graphical-client playtest items. No two-client
+multiplayer session, large-factory performance benchmark or broad third-party
+mod matrix was run. Per-force behaviour and a local server save were tested.
+Existing enemy-expansion collision-mask warnings appear in the Space Age QA
+logs; they also predate this change. There were no new startup/runtime errors
+in the completed test runs.

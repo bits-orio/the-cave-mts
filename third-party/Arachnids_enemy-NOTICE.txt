@@ -1,0 +1,32 @@
+Arachnids_enemy attribution
+===========================
+
+The integrated Arachnid units, spawner, bosses, animations, effects, graphics
+and sounds are adapted from "Arachnids on normal enemy force"
+(Arachnids_enemy) 1.2.0 by MFerrari:
+
+https://mods.factorio.com/mod/Arachnids_enemy
+
+The Factorio Mod Portal declares Arachnids_enemy to be licensed under the MIT
+License. Its downloadable 1.2.0 archive did not include a LICENSE or NOTICE
+file, so the standard MIT text is reproduced beside this notice as
+Arachnids_enemy-MIT.txt.
+
+Arachnids_enemy is itself based on the MIT-licensed "Arachnids" by Aotenshin
+and "ArachnidsFaction" by MnHebi. The creature animation/rig is credited by
+those projects to Sobigdrasil:
+
+https://mods.factorio.com/mod/Arachnids
+https://mods.factorio.com/mod/ArachnidsFaction
+
+The Cave 3.1.50 modifies the upstream package by removing terrain autoplace and
+its runtime terrain-check setting, moving its data-stage code and assets into
+The Cave, disabling standalone spawner autoplace, adding deterministic scripted
+room and direct-dig spawning, adding zone-scaled boss selection, and extending
+English/Russian locale entries. No upstream control-stage code is included.
+
+The Cave maintainer reports receiving explicit permission from MFerrari to
+integrate this work. Distribution of these files does not depend on that
+private statement because the upstream projects are publicly MIT-licensed.
+
+MFerrari, Aotenshin, MnHebi and Sobigdrasil do not endorse or support The Cave.

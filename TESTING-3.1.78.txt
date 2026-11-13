@@ -1,0 +1,52 @@
+The Cave 3.1.78 - wind turbine graphics test build
+Date: 2026-09-18
+
+Scope
+Built from the verified stable 3.1.76 base with the previously authorized
+3.1.77 changes carried forward. This update changes wind turbine graphics only.
+
+Graphics
+- Rebuilt all 20 animation frames from detailed source layers, with refined
+  metal blade shading and filtered downsampling.
+- Each frame is 1200x700 pixels at scale 0.25, replacing 300x175 at scale 1.
+  The world-space canvas remains exactly 300x175 pixels.
+- Entity/item icon: 64x64. Technology icon: 256x256.
+- Three identical blades rotate around the same fixed hub. Their tiny root
+  overlaps are blended without a stacking-order change at the loop boundary.
+
+Preserved behavior
+- Footprint: 3x3. Collision box: (-1.4,-1.4) to (1.4,1.4).
+- Selection box: (-1.5,-1.5) to (1.5,1.5).
+- Ground anchor, sprite shift, 20-frame animation and animation speed unchanged.
+- Entity identity, existing placement, recipes, research, power output,
+  startup setting and runtime scripts unchanged. No new migration.
+- Chests, accumulators and loaders are byte-for-byte identical to 3.1.77.
+- The reported Industrial Loader east/west appearance mismatch remains pending.
+
+Checks completed outside Factorio
+- Executed the changed Lua file under seven startup-setting contexts.
+  All non-graphics prototype values match 3.1.77 exactly; world-space image
+  dimensions match in every context (14 checks).
+- Decoded all three replacement PNGs and checked atlas/frame dimensions,
+  transparency and frame boundaries against the sprite definition.
+- The 120-degree loop endpoint equals the first frame exactly (RGBA delta 0).
+- The base remains stationary through all 20 frames.
+- Visually inspected old/new packed sprites at the same world-space zoom.
+- Compared every file against 3.1.77 and restricted changes to the six paths
+  listed below plus this new testing note.
+- Verified ZIP CRC and every packaged file against the working copy.
+
+Changed files relative to 3.1.77
+info.json
+changelog.txt
+prototypes/wind_turbine.lua
+graphics/entity/wind-turbine/wind-turbine.png
+graphics/icons/wind-turbine/wind-turbine.png
+graphics/technology/wind-turbine/wind-turbine.png
+
+In-game verification still needed
+This build has not been run in Factorio in this environment. Load a copy of
+an existing save, inspect already-placed turbines at normal and close zoom,
+and confirm appearance, rotation and placement relative to nearby entities.
+Also check the item/research icons. Existing saves must retain their turbines
+and the same 3x3 footprint without replacing any placed entity.
