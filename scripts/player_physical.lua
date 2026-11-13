@@ -72,6 +72,13 @@ function physical.teleport(player, position, surface)
     return dx * dx + dy * dy <= 0.0625
 end
 
+-- A platform or rocket rider cannot leave remote view, so it cannot be teleported.
+function physical.is_riding(player)
+    if not valid(player) then return false end
+    local surface = player.physical_surface
+    return valid(surface) and surface.platform ~= nil or valid(player.cargo_pod) or false
+end
+
 -- A remote observer of a surface being removed must only have their view moved.
 -- This must not teleport, kill, or empty the character on a different surface.
 function physical.move_view_off_surface(player, source, destination, position)

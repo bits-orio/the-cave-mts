@@ -636,11 +636,12 @@ local function ensure_train_surface_map_settings(surface)
     end)
 end
 
+-- Also returns true when the surface is new.
 local function create_hidden_surface(name)
     if game.surfaces[name] then
         local existing = game.surfaces[name]
         ensure_train_surface_map_settings(existing)
-        return existing
+        return existing, false
     end
     local surface = game.create_surface(name, {
         water = 0,
@@ -665,7 +666,7 @@ local function create_hidden_surface(name)
     for _, force in pairs(game.forces) do
         pcall(function() force.set_surface_hidden(surface, false) end)
     end
-    return surface
+    return surface, true
 end
 
 local function room_area(offset_x, force)
@@ -2399,7 +2400,7 @@ local function register_wagon(entity, skip_rebuild, force_main_train)
     end
 
     pcall(function() entity.minable_flag = false end)
-    local surface = create_hidden_surface(SURFACE_PREFIX .. tostring(entity.unit_number))
+    local surface, created = create_hidden_surface(SURFACE_PREFIX .. tostring(entity.unit_number))
     local wagon = {
         entity = entity,
         force_index = entity.force.index,
@@ -2419,6 +2420,7 @@ local function register_wagon(entity, skip_rebuild, force_main_train)
     s.surfaces[surface.name] = true
     s.surface_owners[surface.name] = entity.force.index
     s.train_layout_anchor_units[surface.name] = s.train_layout_anchor_units[surface.name] or entity.unit_number
+    if created then cave_teams.raise_owned_surface(surface, entity.force, "created") end
     if not skip_rebuild then
         build_room(wagon)
         if rebuild_train_for_entity then rebuild_train_for_entity(entity) end
@@ -2443,10 +2445,13 @@ rebuild_train_for_entity = function(entity)
     if not train_interiors._train_contains_main_train(carriages) then return end
     train_interiors._enforce_main_train_capacity(entity, true)
     carriages = entity.train and entity.train.valid and entity.train.carriages or carriages
-    local surface = train_interiors._train_surface_for_carriages(s, carriages)
-        or create_hidden_surface(SURFACE_PREFIX .. "train-" .. tostring(first.unit_number))
+    local surface, created = train_interiors._train_surface_for_carriages(s, carriages), false
+    if not surface then
+        surface, created = create_hidden_surface(SURFACE_PREFIX .. "train-" .. tostring(first.unit_number))
+    end
     s.surfaces[surface.name] = true
     s.surface_owners[surface.name] = entity.force.index
+    if created then cave_teams.raise_owned_surface(surface, entity.force, "created") end
     carriages = train_interiors._normalized_train_carriages(s, carriages, surface)
     local signature = train_signature(carriages)
     local layout_origin_x = train_layout_origin_x(s, carriages, surface)
@@ -3752,7 +3757,10 @@ local function ensure_train_power_entities_for_surface(surface)
 
     -- The interface buffers are only one-way transfer windows. Scripted energy
     -- in record.energy is the sole authoritative Train Battery storage.
-    if valid(output) then pcall(function() output.disabled_by_script = false end) end
+    -- A team mod's pause keeps the output switched off until it resumes.
+    if valid(output) and not cave_teams.is_paused(output.force) then
+        pcall(function() output.disabled_by_script = false end)
+    end
 
     return record
 end
@@ -5959,7 +5967,7 @@ function train_interiors.ensure_garden_room(force)
     local name = train_interiors._garden_surface_name(force)
     if not name then return nil end
 
-    local surface = create_hidden_surface(name)
+    local surface, created = create_hidden_surface(name)
     -- Garden floors use ordinary pole coverage. Older builds accidentally made
     -- the entire surface one Space-Platform-style electric network, bypassing
     -- every electric pole. Destroy that network during save migration; the
@@ -5978,6 +5986,7 @@ function train_interiors.ensure_garden_room(force)
     garden.surface_name = name
     garden.stage = stage
     s.gardens[key] = garden
+    if created then cave_teams.raise_owned_surface(surface, force, "created") end
 
     if garden.void_layout_version ~= train_interiors.garden_config.void_layout_version
         or garden.voided_surface_index ~= surface.index
@@ -6608,7 +6617,9 @@ local function cleanup_wagon(wagon)
             end
         end
         if cleanup_train_power_for_surface then cleanup_train_power_for_surface(wagon.surface.name) end
-        local ok, queued = pcall(function() return game.delete_surface(wagon.surface) end)
+        local ok, queued = pcall(function()
+            return cave_teams.delete_owned_surface(wagon.surface, wagon.force_index)
+        end)
         if not ok or not queued then return false end
     end
     for _, door in pairs(wagon.doors or {}) do if valid(door) then door.destroy() end end

@@ -384,12 +384,37 @@ local function the_cave_apply_lighting_to_surface(surface)
     pcall(function() surface.min_brightness = 0 end)
 end
 
+-- Only cave worlds, The Cave's own surfaces, planets and platforms take its
+-- lighting. Other mods' surfaces, such as a team mod's lobby, keep their own.
+local function the_cave_lights_surface(surface)
+    return cave_lifecycle.worlds.is_cave_world(surface) or surface.name:find("^the%-cave%-") ~= nil
+        or surface.planet ~= nil or surface.platform ~= nil
+end
+
+-- A team mod pauses a force by switching off solar on its surfaces. Leave those
+-- surfaces alone until it resumes the force.
+local function the_cave_paused_surfaces()
+    local paused = {}
+    for _, force in ipairs(cave_teams.active_forces()) do
+        if cave_teams.is_paused(force) then
+            for _, surface in ipairs(cave_lifecycle.owned_surfaces(force)) do paused[surface.index] = true end
+            for index in pairs(storage.cave_worlds or {}) do
+                if cave_lifecycle.worlds.owner_force(index) == force then paused[index] = true end
+            end
+        end
+    end
+    return paused
+end
+
 local function make_cave_dark()
     -- Applies the selected The Cave lighting mode.
     -- Enforced repeatedly because scenarios, surfaces, or other mods may try to
     -- move time forward again.
+    local paused = storage.the_cave_team_adapter and the_cave_paused_surfaces() or {}
     for _, surface in pairs(game.surfaces) do
-        the_cave_apply_lighting_to_surface(surface)
+        if the_cave_lights_surface(surface) and not paused[surface.index] then
+            the_cave_apply_lighting_to_surface(surface)
+        end
         solar_display.sync(surface)
     end
 end
@@ -521,6 +546,7 @@ soft_reset.configure {
 
 shelter_core.set_soft_reset_handler(cave_lifecycle.on_defeated)
 warp_outpost.set_main_train_defeat_handler(cave_lifecycle.on_defeated)
+cave_lifecycle.set_player_initializer(initialize_existing_player)
 
 script.on_init(function()
     disable_crash_site()
@@ -1497,9 +1523,6 @@ end)
 
 script.on_nth_tick(6, coin_maker.on_nth_tick)
 script.on_nth_tick(10, cave_accumulator_visuals.on_nth_tick)
--- Refresh only changed support views, reusing drawings and the chunk index.
--- Also catches zoom and cursor ghosts, for which there is no mouse-move hook.
-script.on_nth_tick(15, roof_support.refresh_previews)
 
 script.on_nth_tick(30, function()
     if soft_reset.is_active() or main_train_defeat.blocks_all() then return end
@@ -1523,9 +1546,15 @@ script.on_nth_tick(300, function(event)
     cave_enemy_expansion.on_nth_tick(event)
 end)
 
+-- One handler for both 15-tick jobs: a second on_nth_tick(15) registration
+-- would replace the first.
+-- Roof supports: refresh only changed support views, reusing drawings and the
+-- chunk index. Also catches zoom and cursor ghosts, for which there is no
+-- mouse-move hook.
 -- Player-local ALT-mode labels only. This reads the official turret-ammo
 -- inventory and creates no entities, energy sources or persistent render state.
 script.on_nth_tick(nearby_ammo_count.update_interval, function(event)
+    roof_support.refresh_previews()
     nearby_ammo_count.on_nth_tick(event)
 end)
 
@@ -1538,10 +1567,11 @@ if defines.events.on_forces_merged then
         -- lifecycle cleanup can evaluate walls from the removed force.
         mirror.wipe()
         collapse.wipe_cache()
+        -- Copy the source's progression rooms before the lifecycle clears it.
+        caverns.progression.on_forces_merged(event)
         cave_lifecycle.on_forces_merged(event)
         nearby_ammo_count.on_force_relationship_changed(event)
         wind_turbine.on_forces_merged(event)
-        caverns.progression.on_forces_merged(event)
         underground_world_sync.enqueue(event.destination)
         underground_belt_reach.on_research_finished{research=event.destination.technologies["the-cave-underground-belt-reach-1"]}
         for _,player in pairs(event.destination.players) do underground_blueprints.queue{player_index=player.index} end

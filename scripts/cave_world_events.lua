@@ -13,7 +13,7 @@ local function register_copy(surface)
     local row, added = cave_worlds.register_copy(surface)
     if not added then return row, false end
     -- A recycled index must not inherit generated chunks or old tile mirrors.
-    world.forget_surface_chunks(surface)
+    world.forget_surface_chunks(surface.index)
     mirror.drop_surface(surface.index)
     if storage.train_wave_team_chunk_verification then
         storage.train_wave_team_chunk_verification[surface.index] = nil
@@ -100,6 +100,8 @@ end
 
 function events.on_init()
     cave_worlds.ensure_original(game.surfaces.nauvis)
+    -- A new map has nothing from 3.3.1 to migrate.
+    storage.the_cave_worlds_migration_version = 1
 end
 
 function events.on_surface_deleted(event)

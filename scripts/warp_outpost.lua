@@ -1867,14 +1867,14 @@ function warp_outpost._process_main_train_defeat_countdown(event)
             if remaining <= 0 then
                 countdown.finished = true
                 defeat_message(force, { "the-cave-train-interiors.main-train-defeat-finished" }, true)
-                local ok, started = false, "reset coordinator unavailable"
+                local ok, started, scope = false, "reset coordinator unavailable", nil
                 if main_train_defeat_handler then
-                    ok, started = pcall(main_train_defeat_handler, "main-train-destroyed", { force_index = index })
+                    ok, started, scope = pcall(main_train_defeat_handler, "main-train-destroyed", { force_index = index })
                 end
                 if not (ok and started == true) then
                     log("[The Cave] Main Train reset handoff failed for force " .. index .. ": " .. tostring(started))
                     -- A failed team reset must never finish the other teams' game.
-                    if main_train_defeat.blocks_all() then
+                    if scope ~= "force" and main_train_defeat.blocks_all() then
                         pcall(function()
                             game.set_lose_ending_info {
                                 title = { "the-cave-train-interiors.main-train-defeat-ending-title" },

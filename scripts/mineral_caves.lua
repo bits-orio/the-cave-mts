@@ -1374,6 +1374,7 @@ local function ensure_mineral_cave_surface(record)
 
     record.mineral_cave_surface_index = surface.index
     r.by_surface[surface.index] = record.id
+    if created_surface then child_state.surface_created(record, surface) end
     apply_pitch_black(surface)
     surface.request_to_generate_chunks(record.lower_origin, 4)
     surface.force_generate_chunk_requests()
@@ -1387,7 +1388,7 @@ local function ensure_mineral_cave_surface(record)
     local exit = ensure_matching_exit(record, surface, owner_force)
     if not exit then
         local failed = surface.index
-        game.delete_surface(surface)
+        child_state.delete_surface(record, surface)
         r.by_surface[failed] = nil
         record.mineral_cave_surface_index = nil
         return nil, "exit-failed"
@@ -2002,7 +2003,7 @@ local function evacuate_and_delete_child(record, silent)
         end
     end
     if not child.valid then return true end
-    local ok, queued = pcall(function() return game.delete_surface(child) end)
+    local ok, queued = pcall(function() return child_state.delete_surface(record, child) end)
     return ok and queued == true
 end
 
@@ -2075,7 +2076,7 @@ function mineral_caves.on_surface_cleared(event)
             record.lower_transfer = nil
         end
         local child = valid_surface(surface_index)
-        if child then game.delete_surface(child) end
+        if child then child_state.delete_surface(record, child) end
         return
     end
     local ids = {}

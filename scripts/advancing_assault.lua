@@ -224,14 +224,15 @@ local function active_context(surface, surface_state)
     local seen = {}
     local forces = {}
 
-    for _, player in pairs(game.connected_players) do
-        local candidate = player.force
+    for _, resident in ipairs(cave_teams.residents()) do
+        local player = resident.player
+        local candidate = player.valid and player.connected and player.force
         -- A spectator may keep its team's identity in another mod while its
         -- actual force is the lobby. It must not count toward this assault.
-        local relevant = cave_teams.player_force(player) == candidate
+        local relevant = candidate and resident.force == candidate
             and player.controller_type ~= defines.controllers.spectator
             and cave_teams.force_is_running(candidate)
-            and cave_teams.home_surface(candidate) == surface
+            and resident.home == surface
         if relevant then
             players[#players + 1] = player
             forces[candidate.index] = candidate

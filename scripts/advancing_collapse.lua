@@ -54,8 +54,9 @@ end
 
 local function connected_count(surface)
     local count = 0
-    for _, player in pairs(game.connected_players) do
-        if world_for_player(player) == surface then count = count + 1 end
+    for _, resident in ipairs(cave_teams.residents()) do
+        local player = resident.player
+        if resident.world == surface and player.valid and player.connected then count = count + 1 end
     end
     return count
 end

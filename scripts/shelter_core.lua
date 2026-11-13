@@ -588,7 +588,8 @@ end
 local function create_interior_surface(force)
     local name = SURFACE_PREFIX .. tostring(force.index)
     local surface = game.surfaces[name]
-    if not valid(surface) then
+    local created = not valid(surface)
+    if created then
         surface = game.create_surface(name, {
             water = 0,
             starting_area = 1,
@@ -606,7 +607,7 @@ local function create_interior_surface(force)
     -- generated chunk before the scripted room is painted so no Nauvis or
     -- Space Age planetary terrain can appear around the Shelter.
     void_generated_chunks(surface, nil)
-    return surface
+    return surface, created
 end
 
 local function protect_transfer_fixture(entity)
@@ -865,6 +866,7 @@ function shelter_garden.create_surface(record, force)
         garden.generated_surface_index = surface.index
     end
     pcall(function() force.set_surface_hidden(surface, false) end)
+    if created then shelter_core.teams.raise_owned_surface(surface, force, "created") end
     return surface
 end
 
@@ -1501,7 +1503,7 @@ local function create_shelter_for_force(force, exterior_surface)
     entity.destructible = true
     pcall(function() entity.rotatable = false end)
 
-    local interior = create_interior_surface(force)
+    local interior, interior_created = create_interior_surface(force)
     local initial_shield_level = shelter_shield_level(force)
     local initial_shield_health = shelter_shield_max_health(initial_shield_level)
     local record = {
@@ -1530,6 +1532,7 @@ local function create_shelter_for_force(force, exterior_surface)
     }
     state.forces[force.index] = record
     state.by_entity_unit[entity.unit_number] = force.index
+    if interior_created then shelter_core.teams.raise_owned_surface(interior, force, "created") end
     paint_room(record, force, true)
     create_interior_fixtures(record, force)
     shelter_garden.ensure(record, force, true)
@@ -2914,11 +2917,14 @@ local function update_defeat()
                 clear_defeat_gui(force)
                 state.defeats[index] = nil
                 if type(soft_reset_handler) == "function" then
-                    soft_reset_handler("shelter-destroyed", {
+                    local ok, err = pcall(soft_reset_handler, "shelter-destroyed", {
                         force_index = index,
                         post_reset_countdown_ticks = 30 * 60,
                         shelter_mode = true,
                     })
+                    if not ok then
+                        log("[The Cave] Shelter reset handoff failed for force " .. index .. ": " .. tostring(err))
+                    end
                 end
             end
         end

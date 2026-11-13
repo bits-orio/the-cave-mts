@@ -29,6 +29,15 @@ function child_state.owned_surfaces(root, force, field, prefix, parent_in_name)
     return result
 end
 
+-- on_owned_surface_changed for a child cave the record's force owns.
+function child_state.surface_created(record, surface)
+    cave_teams.raise_owned_surface(surface, record.owner_force_index, "created")
+end
+
+function child_state.delete_surface(record, surface)
+    return cave_teams.delete_owned_surface(surface, record and record.owner_force_index)
+end
+
 function child_state.owner_force(root, surface, field, prefix, parent_in_name)
     if not (surface and surface.valid) then return nil end
     local id = root.by_surface and root.by_surface[surface.index]

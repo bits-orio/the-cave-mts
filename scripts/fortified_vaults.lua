@@ -1535,13 +1535,15 @@ local function ensure_child_surface(record)
     if not parent then return nil, "missing-parent" end
     local name = SURFACE_PREFIX .. tostring(record.parent_surface_index) .. "-" .. tostring(record.id)
     local surface = game.surfaces[name]
-    if not (surface and surface.valid) then
+    local created = not (surface and surface.valid)
+    if created then
         surface = game.create_surface(name, create_map_gen_settings(record, parent))
     end
     if not (surface and surface.valid) then return nil, "surface-failed" end
 
     record.child_surface_index = surface.index
     root().by_surface[surface.index] = record.id
+    if created then child_state.surface_created(record, surface) end
     apply_pitch_black(surface)
     local half = math.floor(zone_layout(record.level_id, record.advancing_balance).size / 2)
     local chunk_radius = math.ceil((half + 16) / 32)
@@ -1921,7 +1923,9 @@ local function cleanup_closed_vault(record)
             end
         end
         if child.valid then
-            local ok, queued = pcall(function() return game.delete_surface(child) end)
+            -- A spiral's surface name carries a layout suffix, so get_owned_surfaces never lists it.
+            local owned = not record.spiral and record or nil
+            local ok, queued = pcall(function() return child_state.delete_surface(owned, child) end)
             if not ok or not queued then
                 set_child_surface_hidden(record, true)
                 return false
@@ -2286,7 +2290,7 @@ local function migrate_spiral_layout(record)
             local position=parent and (parent.index==record.parent_surface_index and record.entrance_position or child_state.spawn_position(player,parent))
             if player.surface==child and (not parent or not physical.move_view_off_surface(player,child,parent,position)) then return end
         end
-        if not game.delete_surface(child) then return end
+        if not child_state.delete_surface(not record.spiral and record or nil, child) then return end
     end
     for _,field in ipairs {"exit_label_id","lower_timer_id","safe_zone_outline_id","safe_zone_label_id"} do
         destroy_render(record[field]);record[field]=nil

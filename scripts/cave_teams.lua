@@ -1,5 +1,6 @@
 -- Gameplay modules depend on this leaf coordinator, never on a team mod.
 local worlds = require("scripts.cave_worlds")
+local physical = require("scripts.player_physical")
 local teams = {}
 local callbacks = {}
 
@@ -20,28 +21,102 @@ local function force_for(force)
     return force
 end
 
-local function adapter_call(method, ...)
-    local name = storage.the_cave_team_adapter
-    if name and remote.interfaces[name] and remote.interfaces[name][method] then
-        local ok, result = pcall(remote.call, name, method, ...)
-        if ok then return result end
-        log("The Cave team adapter " .. name .. "." .. method .. ": " .. tostring(result))
+-- Adapter answers for the current tick. Every read of remote.interfaces builds
+-- a new table, and per-tick systems ask the same questions many times a tick.
+-- Built only from game state and keyed by game.tick, so every peer, including
+-- one that just joined, derives the same contents.
+local cache = {}
+
+local function tick_cache()
+    if cache.tick ~= game.tick then
+        local name = storage.the_cave_team_adapter
+        cache = { tick = game.tick, name = name, methods = name and remote.interfaces[name] or {}, answers = {} }
     end
+    return cache
+end
+
+local function adapter_call(method, ...)
+    local c = tick_cache()
+    if c.name and c.methods[method] then
+        local ok, result = pcall(remote.call, c.name, method, ...)
+        if ok then return result end
+        log("The Cave team adapter " .. c.name .. "." .. method .. ": " .. tostring(result))
+    end
+end
+
+local NONE = {}
+
+-- A per-tick memo of adapter_call(method, index).
+local function adapter_answer(method, index)
+    local answers = tick_cache().answers
+    answers[method] = answers[method] or {}
+    local result = answers[method][index]
+    if result == nil then
+        result = adapter_call(method, index)
+        if result == nil then result = NONE end
+        answers[method][index] = result
+    end
+    if result == NONE then return nil end
+    return result
 end
 
 function teams.configure(options) callbacks = options or {} end
 
+-- on_owned_surface_changed: cave_lifecycle generates the id in the main chunk
+-- and publishes it through the-cave-v1. Modules report each surface that
+-- get_owned_surfaces(force) would list where they create it or queue its
+-- deletion.
+local owned_surface_event = nil
+
+function teams.set_owned_surface_event(id) owned_surface_event = id end
+
+function teams.raise_owned_surface(surface, force, change)
+    force = force_for(force)
+    if not (owned_surface_event and surface and surface.valid and force and force.valid) then return end
+    script.raise_event(owned_surface_event, {
+        surface_index = surface.index, surface_name = surface.name, force_index = force.index, change = change,
+    })
+end
+
+-- game.delete_surface for an owned surface; reports it once it is queued.
+function teams.delete_owned_surface(surface, force)
+    if not (surface and surface.valid) then return false end
+    local queued = game.delete_surface(surface)
+    if queued then teams.raise_owned_surface(surface, force, "deleted") end
+    return queued
+end
+
 function teams.register_adapter(name)
     if type(name) ~= "string" or not remote.interfaces[name] then return false end
     storage.the_cave_team_adapter = name
+    cache = {}
     return true
 end
 
 function teams.player_force(player)
     if not (player and player.valid) then return nil end
-    local index = adapter_call("effective_force", player.index)
+    local index = adapter_answer("effective_force", player.index)
     local force = index and game.forces[index]
     return force and force.valid and force or player.force
+end
+
+-- Connected players with their effective force, home and current world (the
+-- physical surface when the force owns it, else the home), once per tick.
+-- Entries can go stale within the tick, so callers check player.valid.
+function teams.residents()
+    local c = tick_cache()
+    if not c.residents then
+        local list = {}
+        for _, player in pairs(game.connected_players) do
+            local force = teams.player_force(player)
+            local home = teams.home_surface(force)
+            local surface = physical.surface(player)
+            local world = surface and worlds.owner_force(surface) == force and surface or home
+            list[#list + 1] = { player = player, force = force, home = home, world = world }
+        end
+        c.residents = list
+    end
+    return c.residents
 end
 
 function teams.has_base(force)
@@ -115,13 +190,19 @@ end
 teams.surface_owner_force = teams.owner_force
 
 function teams.is_ready(force)
-    return force and force.valid and adapter_call("force_ready", force.index) ~= false
+    return force and force.valid and adapter_answer("force_ready", force.index) ~= false
+end
+
+-- A paused force's surfaces belong to the team mod's pause until it resumes.
+function teams.is_paused(force)
+    force = force_for(force)
+    return force and force.valid and adapter_answer("force_paused", force.index) == true or false
 end
 
 function teams.force_is_running(force)
     force = force_for(force)
     return force and force.valid and teams.is_ready(force)
-        and adapter_call("force_paused", force.index) ~= true
+        and adapter_answer("force_paused", force.index) ~= true
         and not (callbacks.defeated and callbacks.defeated(force)) or false
 end
 

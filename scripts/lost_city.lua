@@ -1691,12 +1691,14 @@ local function create_city_surface(record)
     end
     local name = SURFACE_PREFIX .. record.id
     local surface = game.get_surface(name)
+    local created = not surface
     if not surface then
         surface = game.create_surface(name, create_nauvis_map_gen_settings(record))
     end
     if not (surface and surface.valid) then return nil, "surface-create-failed" end
     record.surface_index = surface.index
     root().by_surface[surface.index] = record.id
+    if created then child_state.surface_created(record, surface) end
     record.city_generation_version = 3
     surface.request_to_generate_chunks({ 0, 0 }, INITIAL_GENERATION_RADIUS)
     surface.force_generate_chunk_requests()
@@ -1713,7 +1715,7 @@ local function create_city_surface(record)
     local exit = create_fixed_entity(surface, EXIT_NAME, { x = 0, y = -7 }, force)
     local crate = create_fixed_entity(surface, SUPPLY_CRATE_NAME, { x = 4, y = 7 }, force)
     if not (exit and exit.unit_number and crate and crate.unit_number) then
-        pcall(function() game.delete_surface(surface) end)
+        pcall(function() child_state.delete_surface(record, surface) end)
         return nil, "mission-entities-failed"
     end
     record.exit_unit_number = exit.unit_number
@@ -1726,7 +1728,7 @@ local function create_city_surface(record)
     place_npcs(record, surface, force, generator)
     if not ensure_lower_item_ports(record, surface) then
         root().by_surface[surface.index] = nil
-        pcall(function() game.delete_surface(surface) end)
+        pcall(function() child_state.delete_surface(record, surface) end)
         record.surface_index = nil
         return nil, "item-transfer-failed"
     end
@@ -2493,7 +2495,7 @@ local function delete_child_if_empty(record)
             if not physical.move_view_off_surface(player, child, parent, position) then return false end
         end
     end
-    local ok, queued = pcall(function() return game.delete_surface(child) end)
+    local ok, queued = pcall(function() return child_state.delete_surface(record, child) end)
     if not ok or not queued then return false end
     root().by_surface[child.index] = nil
     record.surface_index = nil
